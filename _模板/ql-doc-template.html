@@ -1,0 +1,97 @@
+<!-- 秦岭归云 · 文档模板（浅色版）
+     用法：复制 <style> 整段 + 参考 STRUCTURE 区的骨架，逐页写 .page
+     禁止修改任何颜色值与字号体系。所有布尔/颜色必须是模板里的值。 -->
+<meta charset="utf-8">
+<style>
+@page { size: A4; margin: 0; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #F2F1ED; color: #1A1917;
+  font-family: "Songti SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 9.5pt; line-height: 1.78;
+}
+/* ===== 页面容器 ===== */
+.page { width: 210mm; height: 297mm; padding: 16mm 16mm 13mm; position: relative; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+/* ===== 页眉 / 页脚 ===== */
+.hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2.5mm; border-bottom: .8pt solid #C9C5BC; }
+.hd .l { font-size: 7.5pt; color: #7C7871; letter-spacing: .1em; }
+.tag { background: #A32D2D; color: #FFFFFF; font-size: 7.5pt; padding: .8mm 2.4mm; border-radius: 2px; letter-spacing: .12em; font-family: "Songti SC", serif; }
+.ft { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: #8A867E; padding-top: 2.5mm; border-top: .8pt solid #C9C5BC; }
+.ft .mid { color: #C0392B; letter-spacing: .3em; }
+/* ===== 拉丁字母辅助样式 ===== */
+.lat { font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+/* ===== 标题 ===== */
+h1 { font-size: 22pt; font-weight: 700; margin: 12mm 0 2mm; letter-spacing: .04em; }
+h1 .ac { color: #C0392B; }
+.lead-en { font-size: 8pt; color: #7C7871; margin-bottom: 7mm; }
+h2 { font-size: 13pt; font-weight: 700; margin: 0 0 3mm; }
+h2 .en { font-size: 7.5pt; font-weight: 400; color: #7C7871; letter-spacing: .14em; margin-left: 2.5mm; }
+h3 { font-size: 11pt; font-weight: 700; margin: 0 0 2mm; }
+.rule { height: .8pt; background: #C9C5BC; margin: 4mm 0; }
+/* ===== 正文 ===== */
+p { margin: 0 0 3mm; color: #3A3733; }
+.lead { color: #26241F; }
+.small { font-size: 8pt; color: #6B675F; line-height: 1.7; }
+/* ===== 封面元信息（封面页"主角/时长/结局"那组） ===== */
+.meta { border-top: .8pt solid #C9C5BC; margin-top: 4mm; }
+.meta div { display: flex; border-bottom: .5pt solid #DCD8D0; padding: 1.6mm 0; font-size: 8.5pt; }
+.meta .k { flex: 0 0 22mm; color: #7C7871; }
+.meta .v { flex: 1; color: #3A3733; }
+/* ===== 面板：白底 + 左侧红竖条 ===== */
+.panel { background: #FFFFFF; border: .6pt solid #DDD9D1; border-left: 2.4pt solid #C0392B; border-radius: 3px; padding: 5mm 6mm; margin: 5mm 0; }
+.panel .k { color: #C0392B; font-weight: 700; }
+.panel p:last-child { margin-bottom: 0; }
+/* ===== 表格 ===== */
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+th { text-align: left; font-weight: 500; color: #7C7871; font-size: 7.5pt; letter-spacing: .06em; padding: 1.6mm 2mm; border-bottom: .8pt solid #C9C5BC; }
+td { padding: 1.7mm 2mm; border-bottom: .5pt solid #DCD8D0; color: #3A3733; vertical-align: top; }
+td.num { color: #C0392B; font-weight: 700; width: 9mm; }
+td.hi { color: #1A1917; font-weight: 500; }
+/* ===== 章节 / 区块：顶部细横线 ===== */
+.sec { border-top: .8pt solid #C9C5BC; padding-top: 4mm; margin-top: 4.5mm; }
+.sec > .num { display: inline-block; background: #A32D2D; color: #FFFFFF; font-size: 7pt; padding: .8mm 2.2mm; border-radius: 2px; letter-spacing: .1em; }
+.loc { font-size: 7.5pt; color: #7C7871; margin: 2.2mm 0; letter-spacing: .02em; }
+/* ===== 字段行：左标签红、右内容 ===== */
+.f { display: flex; gap: 3mm; margin-bottom: 1.4mm; font-size: 9pt; line-height: 1.72; }
+.f .k { flex: 0 0 13mm; color: #C0392B; }
+.f .v { flex: 1; color: #3A3733; }
+.f .v b { color: #1A1917; font-weight: 700; }
+.f .v code { font-family: "SF Mono", Menlo, monospace; font-size: 8pt; color: #96271C; background: #EAE7E0; padding: 0 .8mm; border-radius: 2px; }
+/* ===== 金句引用（角色卡每页底部那句） ===== */
+.quote { border-left: 2.4pt solid #C0392B; padding: 1mm 0 1mm 4mm; margin: 4mm 0 2mm; font-size: 10pt; color: #1A1917; line-height: 1.7; }
+.quote-src { font-size: 7.5pt; color: #7C7871; text-align: right; font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .12em; }
+/* ===== 勾选清单 ===== */
+.ck { font-size: 8.5pt; color: #3A3733; padding: 1.4mm 0; border-bottom: .5pt solid #DCD8D0; }
+.ck b { color: #1A1917; font-weight: 700; }
+/* ===== 双列 / 三列 ===== */
+.grid2 { display: flex; gap: 5mm; }
+.grid2 > div { flex: 1; }
+.grid3 { display: flex; gap: 4mm; }
+.grid3 > div { flex: 1; }
+</style>
+
+<!-- ===== STRUCTURE 参考骨架 =====
+
+  封面页（品牌优先：秦岭归云 必须是最大的那行，文档类型次之）：
+  <div class="page">
+    <div class="hd"><div class="l">秦岭归云 · 文档名</div><div class="tag">TAG</div></div>
+    <h1 style="margin:13mm 0 2.5mm;font-size:30pt;letter-spacing:.08em">秦岭<span class="ac">归云</span></h1>
+    <p style="font-size:13pt;color:#1A1917;margin:0 0 1.5mm">文档类型</p>
+    <p style="margin-bottom:5mm">一句话副标题</p>
+    <div class="rule"></div>
+    <p class="lead">导语</p>
+    <div class="meta"><div><span class="k">主角</span><span class="v">沈怀谷</span></div>...</div>
+    <div class="ft"><div>左</div><div class="mid">秦 岭 归 云</div><div>01</div></div>
+  </div>
+
+  内容页：
+  <div class="page">
+    <div class="hd"><div class="l">秦岭归云 · 文档名 · 章节</div><div class="tag">章节英文</div></div>
+    <h2 style="margin-top:6mm">小节标题<span class="en">ENGLISH</span></h2>
+    ... 表格 / .f 字段行 / .panel / .quote / p ...
+    <div class="ft"><div>文档名 · 版本</div><div class="mid">秦 岭 归 云</div><div>页码 0X</div></div>
+  </div>
+
+===== -->

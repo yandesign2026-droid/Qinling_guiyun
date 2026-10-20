@@ -1,0 +1,603 @@
+<meta charset="utf-8">
+<title>秦岭归云 · 人物角色卡</title>
+<style>
+@page { size: A4; margin: 0; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #F2F1ED; color: #1A1917;
+  font-family: "Songti SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 9.5pt; line-height: 1.78;
+}
+/* ===== 页面容器 ===== */
+.page { width: 210mm; height: 297mm; padding: 16mm 16mm 13mm; position: relative; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+/* ===== 页眉 / 页脚 ===== */
+.hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2.5mm; border-bottom: .8pt solid #C9C5BC; }
+.hd .l { font-size: 7.5pt; color: #7C7871; letter-spacing: .1em; }
+.tag { background: #A32D2D; color: #FFFFFF; font-size: 7.5pt; padding: .8mm 2.4mm; border-radius: 2px; letter-spacing: .12em; font-family: "Songti SC", serif; }
+.ft { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: #8A867E; padding-top: 2.5mm; border-top: .8pt solid #C9C5BC; }
+.ft .mid { color: #C0392B; letter-spacing: .3em; }
+/* ===== 拉丁字母辅助样式 ===== */
+.lat { font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+/* ===== 标题 ===== */
+h1 { font-size: 22pt; font-weight: 700; margin: 12mm 0 2mm; letter-spacing: .04em; }
+h1 .ac { color: #C0392B; }
+.lead-en { font-size: 8pt; color: #7C7871; margin-bottom: 7mm; }
+h2 { font-size: 13pt; font-weight: 700; margin: 0 0 3mm; }
+h2 .en { font-size: 7.5pt; font-weight: 400; color: #7C7871; letter-spacing: .14em; margin-left: 2.5mm; }
+h3 { font-size: 11pt; font-weight: 700; margin: 0 0 2mm; }
+.rule { height: .8pt; background: #C9C5BC; margin: 4mm 0; }
+/* ===== 正文 ===== */
+p { margin: 0 0 3mm; color: #3A3733; }
+.lead { color: #26241F; }
+.small { font-size: 8pt; color: #6B675F; line-height: 1.7; }
+/* ===== 封面元信息（封面页"主角/时长/结局"那组） ===== */
+.meta { border-top: .8pt solid #C9C5BC; margin-top: 4mm; }
+.meta div { display: flex; border-bottom: .5pt solid #DCD8D0; padding: 1.6mm 0; font-size: 8.5pt; }
+.meta .k { flex: 0 0 22mm; color: #7C7871; }
+.meta .v { flex: 1; color: #3A3733; }
+/* ===== 面板：白底 + 左侧红竖条 ===== */
+.panel { background: #FFFFFF; border: .6pt solid #DDD9D1; border-left: 2.4pt solid #C0392B; border-radius: 3px; padding: 5mm 6mm; margin: 5mm 0; }
+.panel .k { color: #C0392B; font-weight: 700; }
+.panel p:last-child { margin-bottom: 0; }
+/* ===== 表格 ===== */
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+th { text-align: left; font-weight: 500; color: #7C7871; font-size: 7.5pt; letter-spacing: .06em; padding: 1.6mm 2mm; border-bottom: .8pt solid #C9C5BC; }
+td { padding: 1.7mm 2mm; border-bottom: .5pt solid #DCD8D0; color: #3A3733; vertical-align: top; }
+td.num { color: #C0392B; font-weight: 700; width: 9mm; }
+td.hi { color: #1A1917; font-weight: 500; }
+/* ===== 章节 / 区块：顶部细横线 ===== */
+.sec { border-top: .8pt solid #C9C5BC; padding-top: 4mm; margin-top: 4.5mm; }
+.sec > .num { display: inline-block; background: #A32D2D; color: #FFFFFF; font-size: 7pt; padding: .8mm 2.2mm; border-radius: 2px; letter-spacing: .1em; }
+.loc { font-size: 7.5pt; color: #7C7871; margin: 2.2mm 0; letter-spacing: .02em; }
+/* ===== 字段行：左标签红、右内容 ===== */
+.f { display: flex; gap: 3mm; margin-bottom: 1.4mm; font-size: 9pt; line-height: 1.72; }
+.f .k { flex: 0 0 13mm; color: #C0392B; }
+.f .v { flex: 1; color: #3A3733; }
+.f .v b { color: #1A1917; font-weight: 700; }
+.f .v code { font-family: "SF Mono", Menlo, monospace; font-size: 8pt; color: #96271C; background: #EAE7E0; padding: 0 .8mm; border-radius: 2px; }
+/* ===== 金句引用（角色卡每页底部那句） ===== */
+.quote { border-left: 2.4pt solid #C0392B; padding: 1mm 0 1mm 4mm; margin: 4mm 0 2mm; font-size: 10pt; color: #1A1917; line-height: 1.7; }
+.quote-src { font-size: 7.5pt; color: #7C7871; text-align: right; font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .12em; }
+/* ===== 勾选清单 ===== */
+.ck { font-size: 8.5pt; color: #3A3733; padding: 1.4mm 0; border-bottom: .5pt solid #DCD8D0; }
+.ck b { color: #1A1917; font-weight: 700; }
+/* ===== 双列 / 三列 ===== */
+.grid2 { display: flex; gap: 5mm; }
+.grid2 > div { flex: 1; }
+.grid3 { display: flex; gap: 4mm; }
+.grid3 > div { flex: 1; }
+</style>
+<style>
+.pg { display: flex; flex-direction: column; }
+.cell { border-top: .8pt solid #C9C5BC; padding-top: 1.8mm; }
+.cell .k { font-size: 7.5pt; color: #7C7871; letter-spacing: .12em; }
+.cell .v { font-size: 12pt; color: #1A1917; margin-top: 1mm; }
+.pf { background: #FFFFFF; border: .6pt solid #DDD9D1; border-radius: 3px; display: flex; align-items: center; justify-content: center; }
+.blk { display: flex; flex-direction: column; justify-content: space-between; }
+</style>
+<div class="page pg">
+  <div class="hd"><div class="l">秦岭归云 · 人物角色卡</div><div class="tag">CHARACTER</div></div>
+  <div style="flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;padding-bottom:14mm">
+    <div><span class="lat" style="font-size:9.5pt;color:#7C7871;letter-spacing:.3em">Character Profiles</span></div>
+    <h1 style="margin:5mm 0 0;font-size:32pt;letter-spacing:.08em">秦岭<span class="ac">归云</span></h1>
+    <p style="font-size:15pt;color:#1A1917;margin:4mm 0 1.5mm">人物角色卡</p>
+    <p style="font-size:11.5pt;color:#3A3733;margin-bottom:10mm">十一位角色的设定、执念、矛盾与游戏功能</p>
+    <div class="rule"></div>
+    <p class="lead" style="font-size:11.5pt;line-height:1.95;margin-top:3mm">这不是一张人物清单，而是一份"人物如何进入玩法"的说明。</p>
+    <p style="font-size:11pt;line-height:1.95">每个角色都由三件套构成——执念 · 矛盾 · 玩家能做的事。 他们的戏份不在台词量，而在是否被玩家需要。</p>
+    <div class="panel" style="margin-top:16mm;padding:8mm 9mm">
+      <p style="font-size:12pt;color:#1A1917;letter-spacing:.08em">单主角 · 第一人称 · 其余为 NPC</p>
+    </div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>11</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 01</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">01</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">沈怀谷<span class="en" style="font-size:9.5pt">玩家视角 / 被选中的容器</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">SHEN HUAI-GU</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">罗盘世家后人</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">二十余岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">村民</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 01</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>带着爷爷留下的《葬经》与罗盘拓片进山，只想搞清楚村子底下埋着什么，直到第七天才明白——埋着的正是他自己的位置。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">把爷爷笔记里那个问号解开。他不是为了救人，是为了求证。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">他越想破阵，就越接近自己成为容器的那一刻。破阵是他主动的选择，也是他被挑中的原因。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">全程视角的锚点。所有线索经他的眼睛进入，所有选择以他的名义生效。分歧三处：信不信林援朝、带不带商人、最后问不问陈素心那句关键的口诀。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他是"主动的容器"——不是被命运推着走，而是自己一步步走进去。这决定全篇语气：玩家不是受害者，是追着自己影子跑的人。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"破阵本身就是代价。你破了他的阵，他就记住你了。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">CONTAINER —— 第三夜</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>01</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 02</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">02</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">老板娘<span class="en" style="font-size:9.5pt">守墓人 · 反派</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">THE KEEPER</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">守墓人</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">近二百岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">守阵方</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 02</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>住持"归云居"、替邪修把人一个一个送进阵里的女人。旗袍是暗红的，妆容从不乱，声音像泉水，眼神永远在俯视。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">守住这座坟。不是效忠邪修，是她已经没有其他事可做——守了快两百年，守成了自己的全部。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">她是唯一知道全部真相的人，却必须用假话维持它。越说得滴水不漏，越显出她自己的困局。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">全篇最大的不可信信源。她的话半真半假，玩家要分辨哪句是真的。同时是陈素心被压在底下的对手——两人共用一具身子。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">她是全篇唯一保留色彩的角色（暗红旗袍），这是视觉上的"她是这里的主人"。她的不可信不靠藏，靠说得太多太顺。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"你是被选中的。你死了之后，会成为他的一部分。这是你的荣幸。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">KEEPER —— 第一夜 · 井边</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>02</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 03</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">03</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">陈素心<span class="en" style="font-size:9.5pt">1986 · 被选中者</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">CHEN SU-XIN</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">1986 年被选中的人</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">殁时二十余岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">困守</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 03</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>三十多年前拔过剑、伤过邪修、没救下自己的人。魂还有，被压在老板娘那具身子里，每晚只能出来半个时辰。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">等周教授。等了三十年，也撑了三十年——她靠着"他在找我"这件事没散掉。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">她是被困的那一个，却也是玩家唯一能撬动真相的入口。她知道口诀，但只能靠挤出来的那半个时辰给。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">核心机制"三个问题"的载体。每晚问满三个她就走，问题内容决定拿到哪条线索。她的存在把"人物"变成玩家必须抓紧的资源。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">与老板娘共用一具身子、人格切换靠同一套身体信号（脖子僵→眼左下→肩收背弓→指节蜷→声下掉），这让玩家学会"看身体认人"，比看脸更惊悚。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"我等他。他在山外面。他找了我三十年。你告诉他，我等他。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">1986 —— 第五夜 · 窗玻璃后</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>03</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 04</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">04</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">赵铁柱<span class="en" style="font-size:9.5pt">猎人 · 未被选中</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">ZHAO TIE-ZHU</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">猎人</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">六十余岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">村民</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 04</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>三十多年前进山追一头受伤的野猪迷了路，从此困在村里。独眼，猎枪靠在门后，屋檐下挂着两张早已干硬发黄的兽皮。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">出去见儿子一面。只一面。他连儿子长什么样都快记不清了。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">破阵需要他的血涂在剑柄上——涂了，剑出鞘，他自己就从"困着"变成"停下"。他比谁都想出去，代价却比谁都重。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">关键分歧"让他涂不涂血"的承受者。他不是要玩家救他，是要玩家替他做个他做不了的决定。他的停止，是全篇第一个明确的代价。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他不是悲剧角色，是"有资格拒绝却没拒绝"的人。设计上刻意不让他求死、不让他悲壮，只让他平静——平静比惨更有分量。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"你出去之后，要是能找到他，就跟他说一句——他爹不是不要他。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">HUNTER —— 第六夜 · 牌坊下</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>04</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 05</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">05</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">林援朝<span class="en" style="font-size:9.5pt">拾骨人 · 守在外头的人</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">LIN YUAN-CHAO</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">拾骨人 / 陈素心同学</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">六十余岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">灰色</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 05</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>1986 年陪陈素心进村的那个"不是被选中"的人。守在村外三十年，只为了等一个能破阵的人——也为了等裂缝开，自己钻出去。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">出去。他守了三十年，不是为了赎罪，是为了离开。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">他给的地图是假的，最后一处阵眼被他改过——他打算自己先走。但他又是唯一知道六处尸骨位置的人。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">关键分歧"信不信他的地图"的来源。他制造"可怀疑的善意"，让玩家第一次面对"有人帮你是真的，但他有自己的打算也是真的"。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他不是反派，是"动机不纯的好人"。这比纯粹的反派更难写，也更能让玩家不安——因为玩家会理解他，甚至认同他。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"她救不了任何人，连自己都救不了。她只是把那半句口诀留给了我，让我等一个能破阵的人。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">WATCHMAN —— 第四夜 · 青石牌坊下</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>05</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 06</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">06</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">周教授<span class="en" style="font-size:9.5pt">频率那一端的人</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">PROF. ZHOU</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">西北大学考古学者</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">六十余岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">外部</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 06</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>陈素心当年在城里的相好，留过洋学考古。她死后他找了这个村子三十年，找到的只有频率——声音能穿过结界，人穿不过去。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">找到她。找到那个村子。三十年，一件事，一个人。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">他是全篇最"外面"的人，却也是唯一能隔着一道结界给玩家指路的人。他给的每一条信息都真，却都来得太晚、太碎。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">收音机节点（19 米波段）的对话方，也是玩家破解口诀四句的关键引路人。他把"怀表内侧刻着什么"这件事点破，让陈素心能真正念出口诀。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他是"不在场却无处不在"的人。玩家从头到尾看不见他，只听声音——这让他成为全篇最可信、也最令人心酸的角色：找了三十年，只找到频率。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"我早就知道了。我只是……不肯信。你告诉我，她是怎么死的？"</div>
+    <div class="quote-src" style="margin-top:1.5mm">19M BAND —— 收音机 · 19 米波段</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>06</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 07</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">07</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">商人<span class="en" style="font-size:9.5pt">自保型队友</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">THE MERCHANT</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">生意人</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">四十余岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">村民（非选中）</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 07</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>穿名牌休闲装、胸前挂着黄铜算盘吊坠、手里总攥着计算器念念有词的男人。他只想活着出去，见他六岁的儿子。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">活。以及"逢七必凶，我爸教我的"——他用数字给自己找安全感。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">他越慌越算，越算越错。他算出来的那个"出路"坐标，恰好指向第七处阵眼——错得刚好，反而成了线索。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">关键分歧"带不带他"。带，多一个干扰源，也多一张无意间指向阵眼的人质牌；不带，队伍更安静，但少一条线索。他让"信息流"永远不稳定。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他不是喜剧角色。他的慌张要让人心酸——他靠计算器才记得住儿子的脸。设计上让他永远算错一点，正好给玩家"该不该信他"的犹豫。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"你算过没有？你算过，这法子管用吗？"</div>
+    <div class="quote-src" style="margin-top:1.5mm">ABACUS —— 第六夜 · 转身离去时</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>07</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 08</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">08</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">邪修<span class="en" style="font-size:9.5pt">阵中之人 · 本体</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">THE SEVEN</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">被封在井底的阵主</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">年代不可考</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">守阵方</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 08</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>全篇从不以面目出现的存在。他只在井底、在六层影子、在老板娘转述的"他"字里。摄六魂，缺第七，要的是一个能一并封进去的容器。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">补全第七。不是嗜杀，是阵缺一角就合不上——他挑的是命格，不是随机抓人。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">他挑沈怀谷，却因为被陈素心伤过、被玩家破阵而记住了这个人——这一轮若不成，他抽出来的那一魂就散了，连再摄一次的机会都没了。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">终极压力源与结局判定者。玩家破阵，他被迫现形；玩家不破，他继续沉睡。他不直接与玩家对话，只通过井水、影子和老板娘的话存在。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他刻意不露脸、不发声、不给名字。恐怖来自"你知道他在井底"这件事，而不是他做了什么。全篇只在他被逼现形那一刻给一次明确的画面。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"你以为你是来破阵救人的。到第七天，你会知道，阵要留的人是你。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">SEVEN SOULS —— 全篇未说出口的核心</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>08</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 09</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">09</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">孙明远<span class="en" style="font-size:9.5pt">村人 · 被压住的"村民"</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">SUN MING-YUAN</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">村口黑褂老人</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">不明（脸老皮紧）</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">村</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 09</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>牌坊后头蹲着的黑褂老头，脸像风干的核桃，五官是老的、皮肉却绷得紧，像一件穿了大几十年的衣裳里头的身子早不是原来的了。手里攥着根没点着的旱烟杆。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">守在村口。这地方，总得有人来。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">他是"村民"的样子，却不是活人——是被压在这座坟里的存在之一。他提醒玩家"天黑别出来走"，既是警告，也是筛选。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">入村的第一印象与氛围锚点。他不提供线索，只提供"这里不对"的直觉。玩家的第一份不安，由他给。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他的作用全在"出场三秒"：脸老皮紧、烟杆没点着、脚步轻得几乎没有。越写得具体，越不用解释他是谁——解释就俗了。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"走了？……还会回来。这地方，总得有人来。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">VILLAGER —— 第七夜 · 村口</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>09</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">PORTRAIT 10</div></div>
+  <div class="blk" style="flex:1 1 auto;padding-bottom:6mm">
+    <div style="display:flex;gap:7mm;align-items:stretch;margin-top:8mm;height:84mm">
+      <div class="blk" style="flex:1">
+        <div style="display:flex;align-items:flex-end;gap:5mm">
+          <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">10</div>
+          <div style="flex:1;padding-bottom:1mm">
+            <h2 style="margin:0 0 2mm;font-size:19pt">摄影师<span class="en" style="font-size:9.5pt">被选中者 · 遗照是伪造的</span></h2>
+            <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">THE PHOTOGRAPHER</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="rule" style="margin:6mm 0"></div>
+          <div class="grid3">
+            <div class="cell"><div class="k">身份</div><div class="v">采风的旅人</div></div>
+            <div class="cell"><div class="k">年龄</div><div class="v">三十余岁</div></div>
+            <div class="cell"><div class="k">阵营</div><div class="v">村民（已被选）</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf" style="width:46mm;flex:0 0 46mm"><span class="lat" style="font-size:8pt;color:#7C7871;letter-spacing:.26em">PORTRAIT 10</span></div>
+    </div>
+    <div class="panel" style="padding:7mm 8mm">
+      <p style="font-size:13pt;line-height:1.92;color:#26241F"><span class="k">一句话人设　</span>瘦高、戴鸭舌帽、沉默寡言、目光锐利得像刀片的男人。进村的第二天就"被选中"了，房间里多了一幅镶在旧木框里的黑白照片。</p>
+    </div>
+    <div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">执念</span><span class="v" style="font-size:11.5pt;line-height:1.78">无（已不属剧情）。他的存在只服务于一个功能：让玩家以为被选中的人已经换人了。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">矛盾</span><span class="v" style="font-size:11.5pt;line-height:1.78">那张"遗照"是老板娘伪造的骗局。被选中者留下的本应是画像与八字，不是照片——因为真正被选中的人，没有机会去照相。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">游戏功能</span><span class="v" style="font-size:11.5pt;line-height:1.78">第一次反转的道具。玩家在破庙发现道光年间的帛画残片时，才意识到照片是假的，进而意识到"我可能才是那一个"。</span></div>
+      <div class="f" style="margin-bottom:5mm"><span class="k" style="flex:0 0 17mm;font-size:11.5pt">设计注记</span><span class="v" style="font-size:11.5pt;line-height:1.78">他刻意不丰满、不给对话、不给过去——一个被选中者就该是"被抹掉的人"。丰满了，玩家会同情他，反而削弱"照片是骗局"这一击的分量。</span></div>
+    </div>
+  </div>
+  <div style="padding-bottom:8mm">
+    <div class="quote" style="font-size:12.5pt;line-height:1.85">"这照片是假的。是老板娘放的。她想让你以为被选中的已经换了。"</div>
+    <div class="quote-src" style="margin-top:1.5mm">NO PHOTO —— 破庙 · 帛画残片旁</div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>10</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">RELATIONS</div></div>
+  <div style="flex:1 1 auto">
+    <div>
+      <div style="display:flex;align-items:flex-end;gap:5mm;margin-top:8mm">
+        <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">11</div>
+        <div style="flex:1;padding-bottom:1mm">
+          <h2 style="margin:0 0 2mm;font-size:19pt">群像关系<span class="en" style="font-size:9.5pt">谁连着谁</span></h2>
+          <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">RELATIONS</span></div>
+        </div>
+      </div>
+      <div class="rule" style="margin:6mm 0"></div>
+      <h3 style="font-size:12pt;margin-bottom:3mm">一张关系图：所有人最终都通向沈怀谷</h3>
+      <p class="small" style="font-size:8.5pt;line-height:1.8">实线为"当面关系"，虚线为"隔着距离的关系"。陈素心与周教授从未同屏，靠收音机与怀表相连；老板娘与邪修从不对话，靠井水相连。设计上刻意让最重要的两条线都是断的——这让"隔着"本身成为情绪。</p>
+    </div>
+    <div style="margin-top:8mm"><svg viewBox="0 0 680 630" style="width:178mm;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+<line x1="154" y1="60" x2="286" y2="296" stroke="#C9C5BC" stroke-width="1"/>
+<line x1="154" y1="200" x2="286" y2="300" stroke="#C9C5BC" stroke-width="1"/>
+<line x1="108" y1="222" x2="108" y2="328" stroke="#C9C5BC" stroke-width="1" stroke-dasharray="8 7"/>
+<line x1="340" y1="78" x2="340" y2="280" stroke="#C9C5BC" stroke-width="1"/>
+<line x1="524" y1="200" x2="394" y2="298" stroke="#C9C5BC" stroke-width="1"/>
+<line x1="524" y1="350" x2="394" y2="312" stroke="#C9C5BC" stroke-width="1" stroke-dasharray="8 7"/>
+<line x1="524" y1="500" x2="394" y2="318" stroke="#C9C5BC" stroke-width="1"/>
+<line x1="340" y1="548" x2="340" y2="330" stroke="#C9C5BC" stroke-width="1"/>
+<line x1="572" y1="222" x2="572" y2="328" stroke="#C9C5BC" stroke-width="1" stroke-dasharray="8 7"/>
+<rect x="205.0" y="170.5" width="30.0" height="17" fill="#F2F1ED"/>
+<text x="220" y="183" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">涂血</text>
+<rect x="193.5" y="242.5" width="53.0" height="17" fill="#F2F1ED"/>
+<text x="220" y="255" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">三个问题</text>
+<rect x="432.5" y="241.5" width="53.0" height="17" fill="#F2F1ED"/>
+<text x="459" y="254" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">半真半假</text>
+<rect x="307.8" y="171.5" width="64.5" height="17" fill="#F2F1ED"/>
+<text x="340" y="184" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">自保型队友</text>
+<rect x="325.0" y="431.5" width="30.0" height="17" fill="#F2F1ED"/>
+<text x="340" y="444" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">村口</text>
+<rect x="438.2" y="401.5" width="41.5" height="17" fill="#F2F1ED"/>
+<text x="459" y="414" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">假地图</text>
+<rect x="557.0" y="267.5" width="30.0" height="17" fill="#F2F1ED"/>
+<text x="572" y="280" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">井水</text>
+<rect x="45.0" y="267.5" width="125.9" height="17" fill="#F2F1ED"/>
+<text x="108" y="280" font-size="11.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">19 米波段 · 怀表刻字</text>
+<rect x="286.0" y="280.0" width="108" height="50" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1.6"/>
+<text x="340" y="303" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">沈怀谷</text>
+<text x="340" y="320" font-size="10.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">玩家视角</text>
+<rect x="292.0" y="34.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="340" y="61" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">商人</text>
+<rect x="60.0" y="38.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="108" y="58" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">赵铁柱</text>
+<text x="108" y="75" font-size="10.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">猎人</text>
+<rect x="60.0" y="178.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="108" y="198" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">陈素心</text>
+<text x="108" y="215" font-size="10.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">被选中者</text>
+<rect x="60.0" y="328.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="108" y="348" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">周教授</text>
+<text x="108" y="365" font-size="10.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">频率那一端</text>
+<rect x="524.0" y="178.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="572" y="198" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">老板娘</text>
+<text x="572" y="215" font-size="10.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">守墓人</text>
+<rect x="524.0" y="328.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="572" y="348" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">邪修</text>
+<text x="572" y="365" font-size="10.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">井底</text>
+<rect x="524.0" y="478.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="572" y="498" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">林援朝</text>
+<text x="572" y="515" font-size="10.5" fill="#7C7871" text-anchor="middle" font-family="Songti SC, serif">拾骨人</text>
+<rect x="292.0" y="548.0" width="96" height="44" rx="3" fill="#FFFFFF" stroke="#DDD9D1" stroke-width="1"/>
+<text x="340" y="575" font-size="15" fill="#1A1917" text-anchor="middle" font-family="Songti SC, serif">孙明远</text>
+</svg><div style="display:flex;justify-content:center;gap:10mm;margin-top:4mm;font-size:8.5pt;color:#7C7871"><div><svg width="32" height="8" style="vertical-align:middle"><line x1="0" y1="4" x2="32" y2="4" stroke="#C9C5BC" stroke-width="1"/></svg> 实线 · 当面关系</div><div><svg width="32" height="8" style="vertical-align:middle"><line x1="0" y1="4" x2="32" y2="4" stroke="#C9C5BC" stroke-width="1" stroke-dasharray="5 4"/></svg> 虚线 · 隔着距离的关系</div></div></div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>11</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">人物角色卡 <span class="lat" style="font-size:7pt;color:#7C7871;letter-spacing:.1em">/ Character Profiles</span></div><div class="tag">FUNCTION MAP</div></div>
+  <div style="flex:1 1 auto">
+    <div style="display:flex;align-items:flex-end;gap:5mm;margin-top:8mm">
+      <div class="lat" style="font-size:42pt;font-weight:700;color:#C0392B;line-height:.86">12</div>
+      <div style="flex:1;padding-bottom:1mm">
+        <h2 style="margin:0 0 2mm;font-size:19pt">功能映射<span class="en" style="font-size:9.5pt">每个角色在游戏里干什么</span></h2>
+        <div><span class="lat" style="font-size:8.5pt;color:#7C7871;letter-spacing:.24em">FUNCTION MAP</span></div>
+      </div>
+    </div>
+    <div class="rule" style="margin:6mm 0"></div>
+    <h3 style="font-size:12pt;margin-bottom:3mm">角色 ― 功能映射表</h3>
+    <p class="small" style="font-size:8.5pt;line-height:1.8;margin-bottom:7mm">这一页回答一个问题：这些人物为什么必须在游戏里？每个角色都对应一个具体的玩家动作或一个机制，没有"只为了剧情存在"的角色。这是从小说人物到游戏角色最核心的一步转化。</p>
+    <table style="font-size:9pt">
+      <tr><th style="width:20mm">角色</th><th>在游戏里的功能</th><th style="width:26mm">玩家动作</th><th style="width:18mm">首次出场</th></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">沈怀谷</td><td style="padding:3.4mm 2mm">全程视角锚点；所有线索经他进入，所有选择以他名义生效</td><td style="padding:3.4mm 2mm">探索 / 抉择</td><td style="padding:3.4mm 2mm">第 1 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">老板娘</td><td style="padding:3.4mm 2mm">不可信信源；半真半假的信息，制造判断难度</td><td style="padding:3.4mm 2mm">识破 / 试探</td><td style="padding:3.4mm 2mm">第 1 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">陈素心</td><td style="padding:3.4mm 2mm">"三个问题"机制载体；口诀的持有者</td><td style="padding:3.4mm 2mm">提问 / 取舍</td><td style="padding:3.4mm 2mm">第 3 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">赵铁柱</td><td style="padding:3.4mm 2mm">"涂不涂血"分歧的承受者；全篇第一个明确的代价</td><td style="padding:3.4mm 2mm">决定</td><td style="padding:3.4mm 2mm">第 2 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">林援朝</td><td style="padding:3.4mm 2mm">"信不信地图"分歧的来源；制造可怀疑的善意</td><td style="padding:3.4mm 2mm">判断 / 取舍</td><td style="padding:3.4mm 2mm">第 4 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">周教授</td><td style="padding:3.4mm 2mm">收音机指引；破解口诀四句的关键引路人</td><td style="padding:3.4mm 2mm">收听 / 转译</td><td style="padding:3.4mm 2mm">第 5 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">商人</td><td style="padding:3.4mm 2mm">"带不带他"分歧；让信息流永远不稳定</td><td style="padding:3.4mm 2mm">选择 / 承担</td><td style="padding:3.4mm 2mm">第 1 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">邪修</td><td style="padding:3.4mm 2mm">终极压力源与结局判定者；从不露脸</td><td style="padding:3.4mm 2mm">面对 / 抉择</td><td style="padding:3.4mm 2mm">第 7 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">孙明远</td><td style="padding:3.4mm 2mm">入村第一印象与氛围锚点；提供"这里不对"的直觉</td><td style="padding:3.4mm 2mm">感知</td><td style="padding:3.4mm 2mm">第 1 天</td></tr>
+      <tr><td class="hi" style="padding:3.4mm 2mm">摄影师</td><td style="padding:3.4mm 2mm">第一次反转的道具；揭露"遗照是骗局"</td><td style="padding:3.4mm 2mm">发现 / 推断</td><td style="padding:3.4mm 2mm">第 2 天</td></tr>
+    </table>
+    <div class="panel" style="margin-top:9mm;padding:6mm 7mm">
+      <p style="font-size:9.5pt;line-height:1.82"><span class="k">设计注记　</span>表里有一个刻意的结构：玩家能做的事（玩家动作）全是动词——探索、识破、提问、决定、判断、收听、选择、面对、感知、发现。如果一个角色对应不上任何一个动词，他就还没被游戏化，只算剧情工具人。这是我们筛选人物的统一标准。</p>
+    </div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div>12</div></div>
+</div>
+<div class="page pg">
+  <div class="hd"><div class="l">秦岭归云 · 人物角色卡</div><div class="tag">PROFILES</div></div>
+  <div style="flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:8mm">
+    <div class="lat" style="font-size:12.5pt;letter-spacing:.44em;color:#C0392B">End · of · Profiles</div>
+    <div class="rule" style="width:36mm;margin:10mm 0"></div>
+    <p style="font-size:14.5pt;line-height:2.2;color:#1A1917;text-align:center;letter-spacing:.06em;margin:0">
+      十一位人物，<br>
+      十一种被困的方式。<br>
+      而那个始终站在井边、<br>
+      等着被选中的人回来的——<br>
+      <span style="color:#C0392B">是邪修。</span>
+    </p>
+    <div class="rule" style="width:36mm;margin:12mm 0 0"></div>
+  </div>
+  <div class="ft"><div>秦岭归云 · 人物角色卡</div><div class="mid">井 · 魂 · 容器</div><div></div></div>
+</div>

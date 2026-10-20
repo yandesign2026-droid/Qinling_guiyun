@@ -1,0 +1,225 @@
+<meta charset="utf-8">
+<title>秦岭归云 · 口径冲突补丁 v1.1</title>
+<style>
+@page { size: A4; margin: 0; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #F2F1ED; color: #1A1917;
+  font-family: "Songti SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 9.5pt; line-height: 1.78;
+}
+.page { width: 210mm; height: 297mm; padding: 16mm 16mm 13mm; position: relative; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+.lat { font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2.5mm; border-bottom: .8pt solid #C9C5BC; }
+.hd .l { font-size: 7.5pt; color: #7C7871; letter-spacing: .1em; }
+.tag { background: #A32D2D; color: #FFFFFF; font-size: 7.5pt; padding: .8mm 2.4mm; border-radius: 2px; letter-spacing: .12em; }
+.ft { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: #8A867E; padding-top: 2.5mm; border-top: .8pt solid #C9C5BC; }
+.ft .mid { color: #C0392B; letter-spacing: .3em; }
+h1 { font-size: 22pt; font-weight: 700; margin: 14mm 0 2mm; letter-spacing: .04em; }
+h1 .ac { color: #C0392B; }
+.lead-en { font-size: 8pt; color: #7C7871; margin-bottom: 8mm; }
+h2 { font-size: 13pt; font-weight: 700; margin: 0 0 3mm; }
+h2 .en { font-size: 7.5pt; font-weight: 400; color: #7C7871; letter-spacing: .14em; margin-left: 2.5mm; }
+.rule { height: .8pt; background: #C9C5BC; margin: 4mm 0; }
+p { margin: 0 0 3mm; color: #3A3733; }
+.lead { color: #26241F; }
+.panel { background: #FFFFFF; border: .6pt solid #DDD9D1; border-left: 2.4pt solid #C0392B; border-radius: 3px; padding: 5mm 6mm; margin: 5mm 0; }
+.panel .k { color: #C0392B; font-weight: 700; }
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+th { text-align: left; font-weight: 500; color: #7C7871; font-size: 7.5pt; letter-spacing: .06em; padding: 1.6mm 2mm; border-bottom: .8pt solid #C9C5BC; }
+td { padding: 1.7mm 2mm; border-bottom: .5pt solid #DCD8D0; color: #3A3733; vertical-align: top; }
+td.num { color: #C0392B; font-weight: 700; width: 9mm; }
+td.hi { color: #1A1917; font-weight: 500; }
+.conf { border-top: .8pt solid #C9C5BC; padding-top: 4mm; margin-top: 4.5mm; }
+.conf .num { display: inline-block; background: #A32D2D; color: #FFFFFF; font-size: 7pt; padding: .8mm 2.2mm; border-radius: 2px; letter-spacing: .1em; }
+.conf h3 { font-size: 11.5pt; font-weight: 700; margin: 2.2mm 0 1.2mm; color: #1A1917; }
+.loc { font-size: 7.5pt; color: #7C7871; margin-bottom: 2.4mm; letter-spacing: .02em; }
+.f { display: flex; gap: 3mm; margin-bottom: 1.4mm; font-size: 9pt; line-height: 1.72; }
+.f .k { flex: 0 0 13mm; color: #C0392B; }
+.f .v { flex: 1; color: #3A3733; }
+.f .v b { color: #1A1917; font-weight: 700; }
+.f .v code { font-family: "SF Mono", Menlo, monospace; font-size: 8pt; color: #96271C; background: #EAE7E0; padding: 0 .8mm; border-radius: 2px; }
+.ck { font-size: 8.5pt; color: #3A3733; padding: 1.4mm 0; border-bottom: .5pt solid #DCD8D0; }
+.ck b { color: #1A1917; font-weight: 700; }
+.ck .ans { color: #C0392B; font-weight: 500; }
+.grid2 { display: flex; gap: 5mm; }
+.grid2 > div { flex: 1; }
+.small { font-size: 8pt; color: #6B675F; line-height: 1.7; }
+</style>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 口径补丁</div><div class="tag">补丁 · PATCH</div></div>
+  <h1>口径冲突<span class="ac">补丁</span></h1>
+  <div class="lead-en lat">Canon Patch — Level Design vs Character Profiles · v1.1</div>
+
+  <p class="lead">本补丁不处理创意，只处理两份文档之间<b>"说法不一致"</b>与<b>"数值链条断掉"</b>的部分。共 7 条：前 3 条是硬冲突，必须由你定稿；后 4 条是数值风险，建议按此修改。</p>
+  <p>对象：《秦岭归云 · 关卡设计文档》（17 页 / 节点级）与《秦岭归云 · 人物角色卡》（14 页 / 11 角色）。</p>
+
+  <div class="rule"></div>
+
+  <h2>冲突索引<span class="en">Index of Conflicts</span></h2>
+  <table>
+    <tr><th style="width:9mm">#</th><th style="width:44mm">冲突</th><th>位置</th><th style="width:27mm">性质</th></tr>
+    <tr><td class="num">01</td><td class="hi">节点总数 25 还是 21</td><td>P1 封面 / P2 目录 / P12 汇总表</td><td>硬冲突</td></tr>
+    <tr><td class="num">02</td><td class="hi">四角色出场日全不一致</td><td>角色卡 P13 ↔ 关卡 N06/N09/N16/N17</td><td>硬冲突</td></tr>
+    <tr><td class="num">03</td><td class="hi">赵铁柱"涂血"无落点</td><td>角色卡 P5 ↔ 关卡 N09</td><td>硬冲突</td></tr>
+    <tr><td class="num">04</td><td class="hi">怀表埋点跳号，容错仅 1 次</td><td>N02 / N06 / N08 / N15</td><td>数值风险</td></tr>
+    <tr><td class="num">05</td><td class="hi">商人 Day6 才出场</td><td>角色卡 P8 ↔ 关卡 N16</td><td>数值风险</td></tr>
+    <tr><td class="num">06</td><td class="hi">倒计时归零与铁律一冲突</td><td>P3 铁律一 ↔ P14 扣减表</td><td>逻辑冲突</td></tr>
+    <tr><td class="num">07</td><td class="hi">问题额度在 Day4 无处可扣</td><td>N12 / 附录A 变量表</td><td>逻辑冲突</td></tr>
+  </table>
+
+  <div class="panel">
+    <p style="margin:0"><span class="k">一句话结论：</span>关卡文档的依赖链、时长分配、数值阈值都是自洽的，问题集中在<b>节点表被删改过而封面、目录、角色卡没有同步</b>。收口方式建议为：以关卡文档为准，补回 4 个节点，同步更新角色卡与封面。</p>
+  </div>
+
+  <div class="ft"><div>口径冲突补丁 · v1.1</div><div class="mid">秦岭归云</div><div>01</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 口径补丁</div><div class="tag">冲突 01–02</div></div>
+
+  <div class="conf" style="border-top:none; margin-top:6mm">
+    <div class="num">冲突 01</div>
+    <h3>节点总数：封面写 25，汇总表只有 21</h3>
+    <div class="loc">位置：P1 封面 / P2 目录 / P12 节点汇总表</div>
+    <div class="f"><div class="k">现状</div><div class="v">封面与目录写"节点总数 25 个""全 25 节点一览"，目录的分章计数（Day0–1 4 个 + Day2–3 8 个 + Day4–5 6 个 + Day6–7 7 个）也是 25。但 P12 汇总表实际只列 <b>N01–N21 共 21 行</b>，且 P12 的"最小可玩集 18 节点"是按 21 条推出来的。</div></div>
+    <div class="f"><div class="k">建议</div><div class="v"><b>定 25</b>，把汇总表补到 25 行，补回 4 个节点（清单见第 06 页）。依据：角色卡里承诺、但关卡里查不到落点的功能正好是 4 个（涂血分歧、商人早期建立、"19 米波段"前置、井边代价确认）。若定 21，最小可玩集将缩到 15 节点，低于"35–45 分钟可完整通关"的目标。</div></div>
+    <div class="f"><div class="k">备选</div><div class="v">定 21，同步改封面与目录，并明确书面放弃上述 4 个功能。<b>不推荐</b>——其中"涂血"是角色卡定义的"全篇第一个明确的代价"，放弃它等于删掉主线的一个承重墙。</div></div>
+    <div class="f"><div class="k">影响面</div><div class="v">P1 封面、P2 目录、P12 汇总表、P12 最小可玩集说明。</div></div>
+  </div>
+
+  <div class="conf">
+    <div class="num">冲突 02</div>
+    <h3>四个角色的出场日，两份文档全不一致</h3>
+    <div class="loc">位置：角色卡 P13 功能映射表 ↔ 关卡文档 N06 / N09 / N16 / N17</div>
+    <div class="f"><div class="k">现状</div><div class="v">仅"邪修"（第 7 天）对齐，因为它没有对应节点。其余四人全部错位：<br>
+      陈素心 角色卡 D3 → 关卡 D2（N06）<br>
+      赵铁柱 角色卡 D2 → 关卡 D3（N09）<br>
+      周教授 角色卡 D5 → 关卡 D6（N17）<br>
+      商人　 角色卡 D1 → 关卡 D6（N16）</div></div>
+    <div class="f"><div class="k">建议</div><div class="v"><b>以关卡为准，改角色卡 P13 的"首次出场"列</b>，改后为：陈素心 D2、赵铁柱 D3、周教授 D5、商人 D2。<b>唯一例外是商人</b>——他不是数字写错，是关卡里出场太晚（见冲突 05），需要新增一个早期节点，而不是把角色卡改成 D6。</div></div>
+    <div class="f"><div class="k">备选</div><div class="v">以角色卡为准，改关卡的节点序号与依赖关系。代价大：会打乱 P12 的关键路径、P4–P11 的分章时长合计，以及附录A 的"七天可质询 8–12 次"推算基础。</div></div>
+    <div class="f"><div class="k">影响面</div><div class="v">角色卡 P13（单表改动）。关卡文档不动。</div></div>
+  </div>
+
+  <div class="ft"><div>口径冲突补丁 · v1.1</div><div class="mid">秦岭归云</div><div>02</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 口径补丁</div><div class="tag">冲突 03–04</div></div>
+
+  <div class="conf" style="border-top:none; margin-top:6mm">
+    <div class="num">冲突 03</div>
+    <h3>赵铁柱的"涂血"分歧，在 25 个节点里没有位置</h3>
+    <div class="loc">位置：角色卡 P5 游戏功能 ↔ 关卡文档 N09</div>
+    <div class="f"><div class="k">现状</div><div class="v">角色卡把赵铁柱定义为"关键分歧<b>让他涂不涂血</b>的承受者""全篇第一个明确的代价"，其角色引文锚点标为"<b>第六夜 · 牌坊下</b>"。但关卡 N09 只有质询 / 闲聊 / 离开三个动作，产出是 E5 与状态"动摇"，状态序列止于锁定，<b>全篇没有任何涂血决策节点</b>。这是本次发现的最大功能缺口。</div></div>
+    <div class="f"><div class="k">建议</div><div class="v">新增 <code>N17b 第六夜 · 牌坊下 · 涂血</code>，插在 N17（收音机）之后、N18（陈素心三问）之前。二选一：让他涂 / 不让。产出变量 <code>zhao_blooded</code>。与终局的耦合：<br>
+      <b>涂</b> → 剑出鞘，A 结局可达；赵铁柱线收束于"停下"，给一段专属视频。<br>
+      <b>不涂</b> → 剑不出鞘，A 降级为"残破版"，终局三选一多出"沈怀谷自己上"这一项的代价说明。</div></div>
+    <div class="f"><div class="k">位置理由</div><div class="v">角色卡原文锚点即"第六夜"。且此刻玩家已完成 N15 私信串联与 N17 周教授确认，<b>已知全部代价</b>，这个决定才有分量。</div></div>
+    <div class="f"><div class="k">备选</div><div class="v">并入 N09（Day3）。<b>不推荐</b>：Day3 玩家还不知道破阵要付什么，代价会被当成普通对话选项。</div></div>
+    <div class="f"><div class="k">影响面</div><div class="v">新增节点、N20 终局判定逻辑、新增变量 <code>zhao_blooded</code>、P12 汇总表。</div></div>
+  </div>
+
+  <div class="conf">
+    <div class="num">冲突 04</div>
+    <h3>怀表埋点跳号，玩家实际只有 1 次容错</h3>
+    <div class="loc">位置：N02 埋点① / N06 埋点② / N08 埋点③ / N15 埋点⑥</div>
+    <div class="f"><div class="k">现状</div><div class="v">变量表写 <code>mention_watch</code> 上限 6、E9 解锁阈值 <code>≥3</code>。但节点里只出现 ①②③⑥ 四个埋点，<b>④⑤ 从未出现</b>。即上限实际为 4、阈值 3，<b>容错只剩 1 次</b>。更严重的是⑥在 Day6（N15）才出现——玩家若在 Day1–Day3 连错两个，E9 直接锁死，A 结局的"真结局片段"在本轮永久不可得，且中途无法察觉。</div></div>
+    <div class="f"><div class="k">建议</div><div class="v">补齐 ④⑤：<b>④ 放 N12</b>（地图验证，林援朝提到罗盘世家 / 怀表）；<b>⑤ 放 N14</b>（卦象谜题，第六张照片背面）。补齐后分布为 D1① D2② D3③ D4④ D5⑤ D6⑥，容错 3 次，且 Day6 不再是唯一兜底。上限 6、阈值 3 保持不变。</div></div>
+    <div class="f"><div class="k">备选</div><div class="v">不加埋点，把阈值降到 2。改动最小，但会削弱"注意细节才有回报"的设计意图，且 Day6 单点兜底的问题仍在。</div></div>
+    <div class="f"><div class="k">影响面</div><div class="v">N12、N14、附录A 变量表（埋点编号补齐）。</div></div>
+  </div>
+
+  <div class="ft"><div>口径冲突补丁 · v1.1</div><div class="mid">秦岭归云</div><div>03</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 口径补丁</div><div class="tag">冲突 05–06</div></div>
+
+  <div class="conf" style="border-top:none; margin-top:6mm">
+    <div class="num">冲突 05</div>
+    <h3>商人在 Day6 才亮相，"带不带他"没有情绪基础</h3>
+    <div class="loc">位置：角色卡 P8（首次出场 D1） ↔ 关卡文档 N16</div>
+    <div class="f"><div class="k">现状</div><div class="v">商人只在 Day6 的 N16 出现一次，玩家与他没有任何前史，却要在同一节点做"带不带他"的二选一，并赌一个 15% 的第七阵眼。角色卡给他的功能是"<b>让信息流永远不稳定</b>"——这个功能需要时间发酵才有意义。</div></div>
+    <div class="f"><div class="k">建议</div><div class="v">新增 <code>N07b 商人的算盘</code>（Day2，N07 论坛私信之后），作为支线：他主动搭话，用胸前黄铜算盘吊坠与计算器算"逢七必凶"，算出的坐标错一点。N16 保留为抉择节点。这样 15% 才落在一个玩家已经认识的人身上。</div></div>
+    <div class="f"><div class="k">备选</div><div class="v">不加节点，把 15% 提到 40% 并加保底（Day6 第二次尝试必出）。成本低，但商人的形象仍然单薄，"不带他"也就不会有犹豫。</div></div>
+    <div class="f"><div class="k">影响面</div><div class="v">新增节点、P15 概率表、P12 汇总表支线标注。</div></div>
+  </div>
+
+  <div class="conf">
+    <div class="num">冲突 06</div>
+    <h3>倒计时归零强制 C，与铁律一直接冲突</h3>
+    <div class="loc">位置：P3 铁律一 ↔ P14 倒计时与扣减</div>
+    <div class="f"><div class="k">现状</div><div class="v">铁律一规定"≥5 条证据且 <code>true_location=true</code> 可进入 A"；P14 规定 <code>time_left</code> 归零则"<b>强制进入结局 C（无论 evidence_count）</b>"。而 N14 卦象谜题可<b>无限重试、每次 −0.5 天、没有地板</b>——一个拿了 6 条证据但卡在谜题上的玩家，连错 14 次就会被强制 C。这惩罚的是"解不开谜题的人"，与 P14 自述的"惩罚不看照片、不问问题的人"<b>不是同一批玩家</b>。</div></div>
+    <div class="f"><div class="k">建议</div><div class="v">保留软倒计时，但加地板与上限：N14 单次失败仍 −0.5，<code>time_left</code> <b>下限锁 1.0</b>，且累计扣减<b>不超过 3.0 天</b>。正常游玩与"反复失败谜题"两种路径都不会归零，归零路径实际不可达，设计意图完整保留。</div></div>
+    <div class="f"><div class="k">备选</div><div class="v">删掉"归零强制 C"，改为归零时只关闭 A、保留 B/C。效果等同，但对玩家更好解释。</div></div>
+    <div class="f"><div class="k">影响面</div><div class="v">P14 扣减表、N14 节点表、附录A 变量表（<code>time_left</code> 下限 0 → 1.0）。</div></div>
+  </div>
+
+  <div class="ft"><div>口径冲突补丁 · v1.1</div><div class="mid">秦岭归云</div><div>04</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 口径补丁</div><div class="tag">冲突 07 + 附议</div></div>
+
+  <div class="conf" style="border-top:none; margin-top:6mm">
+    <div class="num">冲突 07</div>
+    <h3>问题额度扣在 Day4，但 Day4 没有陈素心</h3>
+    <div class="loc">位置：N12 ↔ 附录A 全局变量表（<code>question_slots</code>）</div>
+    <div class="f"><div class="k">现状</div><div class="v">N12 选"不信地图"的代价写的是"Day5 需消耗 1 个陈素心问题额度补足方位"。但陈素心三问发生在 <b>D2（N06）、D3（N10）、D6（N18）</b>，Day4 / Day5 都没有她的节点。而 <code>question_slots</code> 每天子时重置为 3——扣在一个当天不会被使用的额度上，<b>玩家完全感知不到</b>，这个代价等于没有。</div></div>
+    <div class="f"><div class="k">建议</div><div class="v">把代价改扣在最后一次：<b>N18（Day6 第三次三问）额度由 3 降为 2</b>，并把"口诀"设为必选高亮项。玩家会明确感到"我少问了一个"，惩罚落在可感知的位置，也强化了"前面偷懒、最后还是得回来问"的闭环。</div></div>
+    <div class="f"><div class="k">备选</div><div class="v">把陈素心第三次三问从 Day6 提前到 Day5，作为不信路线的专属补偿节点。成本更高，但能让 Day5 不只剩下一个卦象谜题。</div></div>
+    <div class="f"><div class="k">影响面</div><div class="v">N12、N18、附录A 变量表（<code>question_slots</code> 使用说明）。</div></div>
+  </div>
+
+  <div class="conf">
+    <div class="num">附议 A</div>
+    <h3>结局 A / B / C 目前只有门槛，没有内容</h3>
+    <div class="loc">位置：N20 终局三选一 / N21 结局过场（仅写"专属视频"）</div>
+    <div class="f"><div class="k">现状</div><div class="v">P14 给出三档可进入条件，但 A / B / C 分别是什么、N21 播什么，两份文档都没有定义。这是补节点之前必须补的一页。</div></div>
+    <div class="f"><div class="k">草案</div><div class="v">
+      <b>A 破阵</b>——六阵眼全对、真生门确认、剑出鞘。阵被毁，村里困魂（陈素心、孙明远、摄影师）得以散去。代价：他被记住。对应角色卡沈怀谷设计注记"你破了他的阵，他就记住你了"。<br>
+      <b>A（残破）</b>——无人涂血时的降级版：他以自身为代价破阵，阵破了，人没全出来。<code>e9_unlocked=true</code> 且选 A → 追加真结局片段（陈素心念完整口诀）。<br>
+      <b>B 破门自逃</b>——只开真生门自己走。阵还在，明年还会有下一个被选中的人；周教授在频率那端等不到答案。<br>
+      <b>C 盲选</b>——没有判断依据地选。既没破阵也没逃成，被留在村里，进入下一轮。</div></div>
+    <div class="f"><div class="k">待你定</div><div class="v">B 与 C 的差别是否需要更明确（"自逃"与"被留下"之间，是否要一档"带人走但阵不破"）。</div></div>
+  </div>
+
+  <div class="ft"><div>口径冲突补丁 · v1.1</div><div class="mid">秦岭归云</div><div>05</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 口径补丁</div><div class="tag">待补节点 + 待决清单</div></div>
+
+  <h2 style="margin-top:7mm">待补节点清单<span class="en">4 Nodes to Restore · 21 + 4 = 25</span></h2>
+  <table>
+    <tr><th style="width:14mm">编号</th><th style="width:38mm">名称</th><th style="width:14mm">天</th><th style="width:20mm">类型</th><th>作用</th><th style="width:16mm">把握</th></tr>
+    <tr><td class="num">N07b</td><td class="hi">商人的算盘</td><td>Day2</td><td>支线</td><td>建立商人前史，让 N16 的抉择有情绪基础</td><td>90%</td></tr>
+    <tr><td class="num">N14b</td><td class="hi">19 米波段 · 第一次杂音</td><td>Day5</td><td>支线</td><td>把周教授从 Day6 前置到 Day5，符合角色卡口径；给 Day5 补一条支线</td><td>70%</td></tr>
+    <tr><td class="num">N17b</td><td class="hi">牌坊下 · 涂血</td><td>Day6</td><td>主线 · 代价</td><td>补回全篇第一个明确的代价，产出 <code>zhao_blooded</code></td><td>95%</td></tr>
+    <tr><td class="num">N19b</td><td class="hi">井边 · 代价确认</td><td>Day7</td><td>主线</td><td>反转之后、三选一之前，确认谁来付破阵的代价</td><td>50%</td></tr>
+  </table>
+  <p class="small" style="margin-top:3mm">前两项与第三项我有把握。N14b 的把握来自"角色卡口径需要对齐"。N19b 只有一半把握——另一种可能是原本把 N21 结局过场<b>拆成 A / B / C 三个独立节点</b>，同样能凑到 25。这两条路选一条即可。</p>
+
+  <div class="rule"></div>
+
+  <h2>待你定稿的 8 项<span class="en">Decision Checklist</span></h2>
+  <div class="ck"><b>01 节点总数</b> — 定 25 <span class="ans">（建议）</span> / 定 21，同步改封面与目录</div>
+  <div class="ck"><b>02 出场日对齐</b> — 改角色卡 P13 <span class="ans">（建议）</span> / 改关卡节点序号</div>
+  <div class="ck"><b>03 涂血节点</b> — 新增 N17b（Day6） <span class="ans">（建议）</span> / 并入 N09 / 暂缓</div>
+  <div class="ck"><b>04 怀表埋点</b> — 补 ④⑤ 到 N12、N14 <span class="ans">（建议）</span> / 阈值降到 2</div>
+  <div class="ck"><b>05 商人前置</b> — 新增 N07b <span class="ans">（建议）</span> / 概率提到 40% + 保底</div>
+  <div class="ck"><b>06 倒计时地板</b> — 下限锁 1.0 天、累计扣减 ≤ 3.0 <span class="ans">（建议）</span> / 删归零强制 C</div>
+  <div class="ck"><b>07 问题额度</b> — 改扣在 N18 <span class="ans">（建议）</span> / 陈素心三问提前到 Day5</div>
+  <div class="ck"><b>08 第 4 个待补节点</b> — N19b「井边代价确认」 / 把 N21 拆为 A·B·C 三节点</div>
+
+  <div class="panel" style="margin-top:6mm">
+    <p style="margin:0"><span class="k">定稿后的下一步：</span>把本补丁逐条落进《关卡设计文档》生成 v1.2（封面、目录、汇总表、附录A 同步），然后才进台词库（B）。台词库依赖 03 / 05 补出的新节点与新的证人状态，所以顺序不能倒过来。</p>
+  </div>
+
+  <div class="ft"><div>口径冲突补丁 · v1.1</div><div class="mid">秦岭归云</div><div>06</div></div>
+</div>

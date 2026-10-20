@@ -1,0 +1,461 @@
+<meta charset="utf-8">
+<style>
+@page { size: A4; margin: 0; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #F2F1ED; color: #1A1917;
+  font-family: "Songti SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 9.5pt; line-height: 1.78;
+}
+/* ===== 页面容器 ===== */
+.page { width: 210mm; height: 297mm; padding: 16mm 16mm 13mm; position: relative; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+/* ===== 页眉 / 页脚 ===== */
+.hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2.5mm; border-bottom: .8pt solid #C9C5BC; }
+.hd .l { font-size: 7.5pt; color: #7C7871; letter-spacing: .1em; }
+.tag { background: #A32D2D; color: #FFFFFF; font-size: 7.5pt; padding: .8mm 2.4mm; border-radius: 2px; letter-spacing: .12em; font-family: "Songti SC", serif; }
+.ft { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: #8A867E; padding-top: 2.5mm; border-top: .8pt solid #C9C5BC; }
+.ft .mid { color: #C0392B; letter-spacing: .3em; }
+/* ===== 拉丁字母辅助样式 ===== */
+.lat { font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+/* ===== 标题 ===== */
+h1 { font-size: 22pt; font-weight: 700; margin: 12mm 0 2mm; letter-spacing: .04em; }
+h1 .ac { color: #C0392B; }
+.lead-en { font-size: 8pt; color: #7C7871; margin-bottom: 7mm; }
+h2 { font-size: 13pt; font-weight: 700; margin: 0 0 3mm; }
+h2 .en { font-size: 7.5pt; font-weight: 400; color: #7C7871; letter-spacing: .14em; margin-left: 2.5mm; }
+h3 { font-size: 11pt; font-weight: 700; margin: 0 0 2mm; }
+.rule { height: .8pt; background: #C9C5BC; margin: 4mm 0; }
+/* ===== 正文 ===== */
+p { margin: 0 0 3mm; color: #3A3733; }
+.lead { color: #26241F; }
+.small { font-size: 8pt; color: #6B675F; line-height: 1.7; }
+/* ===== 封面元信息（封面页"主角/时长/结局"那组） ===== */
+.meta { border-top: .8pt solid #C9C5BC; margin-top: 4mm; }
+.meta div { display: flex; border-bottom: .5pt solid #DCD8D0; padding: 1.6mm 0; font-size: 8.5pt; }
+.meta .k { flex: 0 0 22mm; color: #7C7871; }
+.meta .v { flex: 1; color: #3A3733; }
+/* ===== 面板：白底 + 左侧红竖条 ===== */
+.panel { background: #FFFFFF; border: .6pt solid #DDD9D1; border-left: 2.4pt solid #C0392B; border-radius: 3px; padding: 5mm 6mm; margin: 5mm 0; }
+.panel .k { color: #C0392B; font-weight: 700; }
+.panel p:last-child { margin-bottom: 0; }
+/* ===== 表格 ===== */
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+th { text-align: left; font-weight: 500; color: #7C7871; font-size: 7.5pt; letter-spacing: .06em; padding: 1.6mm 2mm; border-bottom: .8pt solid #C9C5BC; }
+td { padding: 1.7mm 2mm; border-bottom: .5pt solid #DCD8D0; color: #3A3733; vertical-align: top; }
+td.num { color: #C0392B; font-weight: 700; width: 9mm; }
+td.hi { color: #1A1917; font-weight: 500; }
+/* ===== 章节 / 区块：顶部细横线 ===== */
+.sec { border-top: .8pt solid #C9C5BC; padding-top: 4mm; margin-top: 4.5mm; }
+.sec > .num { display: inline-block; background: #A32D2D; color: #FFFFFF; font-size: 7pt; padding: .8mm 2.2mm; border-radius: 2px; letter-spacing: .1em; }
+.loc { font-size: 7.5pt; color: #7C7871; margin: 2.2mm 0; letter-spacing: .02em; }
+/* ===== 字段行：左标签红、右内容 ===== */
+.f { display: flex; gap: 3mm; margin-bottom: 1.4mm; font-size: 9pt; line-height: 1.72; }
+.f .k { flex: 0 0 13mm; color: #C0392B; }
+.f .v { flex: 1; color: #3A3733; }
+.f .v b { color: #1A1917; font-weight: 700; }
+.f .v code { font-family: "SF Mono", Menlo, monospace; font-size: 8pt; color: #96271C; background: #EAE7E0; padding: 0 .8mm; border-radius: 2px; }
+/* ===== 金句引用（角色卡每页底部那句） ===== */
+.quote { border-left: 2.4pt solid #C0392B; padding: 1mm 0 1mm 4mm; margin: 4mm 0 2mm; font-size: 10pt; color: #1A1917; line-height: 1.7; }
+.quote-src { font-size: 7.5pt; color: #7C7871; text-align: right; font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .12em; }
+/* ===== 勾选清单 ===== */
+.ck { font-size: 8.5pt; color: #3A3733; padding: 1.4mm 0; border-bottom: .5pt solid #DCD8D0; }
+.ck b { color: #1A1917; font-weight: 700; }
+/* ===== 双列 / 三列 ===== */
+.grid2 { display: flex; gap: 5mm; }
+.grid2 > div { flex: 1; }
+.grid3 { display: flex; gap: 4mm; }
+.grid3 > div { flex: 1; }
+</style>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">SHOT LIST</div></div>
+  <h1 style="margin:13mm 0 2.5mm;font-size:30pt;letter-spacing:.08em">秦岭<span class="ac">归云</span></h1>
+  <p style="font-size:13pt;color:#1A1917;margin:0 0 1.5mm">七日分镜脚本</p>
+  <p class="lead" style="margin-bottom:5mm">沈怀谷的七天 · 单轨正式版（60‒90 分钟）</p>
+  <p>本脚本为单轨结构，以主角沈怀谷的第一人称视角推进七天。</p>
+  <p>每一天跑一轮五步循环：问 → 变 → 得 → 连 → 判。</p>
+  <p>第七天的那一轮跑到一半被终局打断——玩家手里必须已收集至少两条证据，才能提出有效判断。</p>
+  <div class="meta">
+    <div><span class="k">主角</span><span class="v">沈怀谷</span></div>
+    <div><span class="k">时长</span><span class="v">单轨正式版 60‒90 分钟</span><span class="tag">关卡设计用</span></div>
+    <div><span class="k">结局</span><span class="v">3 个（A 破阵离开 / B 留在村里 / C 带六魂离开）</span><span class="tag">内部资料</span></div>
+  </div>
+  <div class="ft"><div>单轨正式版 · 主角 沈怀谷 · 60‒90 分钟 · 3 结局</div><div class="mid">秦 岭 归 云</div><div>01</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">总览</div></div>
+  <h2 style="margin-top:6mm">总览<span class="en">OVERVIEW</span></h2>
+  <div class="sec">
+    <h3>七日总表：章节与节拍</h3>
+    <div class="loc lat">7-DAY STRUCTURE</div>
+    <table>
+      <thead><tr><th>章节</th><th>天数</th><th>节拍（分钟）</th><th>核心事件</th><th>五步循环落点</th></tr></thead>
+      <tbody>
+        <tr><td class="hi">前夜</td><td>Day0</td><td>0.5‒1</td><td>抵达、进村、入住</td><td>入局·感知</td></tr>
+        <tr><td class="hi">一</td><td>Day1</td><td>7‒9</td><td>遗照出现、墙里抓挠</td><td>问·得</td></tr>
+        <tr><td class="hi">二</td><td>Day2</td><td>8‒11</td><td>六张照片、陈素心三问</td><td>得·连</td></tr>
+        <tr><td class="hi">三</td><td>Day3</td><td>9‒12</td><td>破庙线装书、赵铁柱</td><td>变·得</td></tr>
+        <tr><td class="hi">四</td><td>Day4</td><td>9‒12</td><td>林援朝假地图</td><td>判·变</td></tr>
+        <tr><td class="hi">五</td><td>Day5</td><td>10‒14</td><td>错卦·卦象校验</td><td>判·得</td></tr>
+        <tr><td class="hi">六</td><td>Day6</td><td>9‒12</td><td>私信四段、商人</td><td>变·连</td></tr>
+        <tr><td class="hi">七</td><td>Day7</td><td>8‒10</td><td>第七夜·终局三选一</td><td>判（被打断）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:5mm">总量：正式版 60‒90 分钟，约 47 个最小反馈点，每 45 秒一个小高潮，每 15 秒一个新反馈。</p>
+  <div class="panel">
+    <p><span class="k">节奏铁律：</span>每一天都完整跑一轮五步循环。第七天那轮跑到"判"时，终局强行切入——所以玩家必须在前六天攒够至少两条有效证据。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>02</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">前夜</div></div>
+  <h2 style="margin-top:6mm">Day0<span class="en">PROLOGUE</span></h2>
+  <h3>Day0 前夜：抵达</h3>
+  <div class="loc lat">THE ARRIVAL</div>
+  <div class="loc">0.5‒1 分钟 只做氛围，不给信息</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">让玩家"落地"。这一段不给任何线索，只建立不安感——雾、甜腥味、手机信号一格一格消失、地图定位偏移。</span></div>
+    <div class="f"><span class="k" style="flex:0 0 17mm">关键镜头</span><span class="v">镜头 1｜车窗外雾压过来，路牌上的村名被雾吞掉一半。固定镜头，3 秒。<br>镜头 2｜手机地图：定位点从"归云村"滑向一片空白。特写，2 秒。<br>镜头 3｜推开客栈木门，暖光与甜腥味同时扑面。主观视角，2 秒。</span></div>
+    <div class="f"><span class="k" style="flex:0 0 17mm">音效 / 反馈</span><span class="v">环境音：雾中的风声 + 远处一声闷响（像有人在敲墙）。手机震动一次——收到一条信号异常提示。</span></div>
+  </div>
+  <div class="panel">
+    <p><span class="k">注意：</span>这一段没有任何文字提示说"这里有问题"。让玩家自己起疑。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>03</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">第一章 · 入局</div></div>
+  <h2 style="margin-top:6mm">Day1<span class="en">CHAPTER 01 · DAY 1</span></h2>
+  <h3>Day1 入村：遗照与抓挠</h3>
+  <div class="loc lat">THE PHOTO &amp; THE SCRATCHING</div>
+  <div class="loc">7‒9 分钟 第一个"问"与"得"</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">建立第一个可质疑的对象（老板娘），给出第一条可收集的证物（遗照），让玩家第一次感受到"时间在这里不正常"。</span></div>
+  </div>
+  <table>
+    <thead><tr><th>节拍</th><th>内容</th><th>玩家动作</th><th>反馈</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">入住</td><td>老板娘登记，提到"上一个客人还没走"</td><td>自由探索房间</td><td>墙上挂着一张照片</td></tr>
+      <tr><td class="hi">发现</td><td>照片里的人是"摄影师"，但他人不在</td><td>查看照片（可放大）</td><td>照片右下角有日期：今日</td></tr>
+      <tr><td class="hi">抓挠</td><td>深夜墙里传来抓挠声</td><td>贴墙听 / 敲墙</td><td>声音停止；手机收到一条私信</td></tr>
+      <tr><td class="hi">对话</td><td>质询老板娘："照片里的人在哪？"</td><td>选择质询意图</td><td>她回避（状态：正常→动摇）</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">证据产出：E1「今日日期的遗照」——写入 <code>evidence_log</code>，标记为"时间异常"。</p>
+  <div class="panel">
+    <p><span class="k">节奏提示：</span>抓挠声必须在玩家准备睡觉时触发，用黑屏 + 音效打断操作，制造第一次真正的惊吓。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>04</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">第二章 · 六张照片</div></div>
+  <h2 style="margin-top:6mm">Day2<span class="en">CHAPTER 02 · DAY 2</span></h2>
+  <h3>Day2 六张照片：陈素心三问</h3>
+  <div class="loc lat">SIX PHOTOS &amp; THREE QUESTIONS</div>
+  <div class="loc">8‒11 分钟 "得"与"连"的高密度日</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">引入陈素心机制（每晚三个问题额度），让玩家第一次"连线"——六张照片 + 六个人 = 六次轮回。</span></div>
+  </div>
+  <table>
+    <thead><tr><th>节拍</th><th>内容</th><th>玩家动作</th><th>反馈</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">发现照片</td><td>阁楼木箱里的六张照片，年代从远到近</td><td>逐张查看、对比</td><td>每张照片背面有生辰八字</td></tr>
+      <tr><td class="hi">连线</td><td>玩家可把照片拖到时间轴上</td><td>排序</td><td>最早的照片→帛画残片；第二轮→画像；第三轮起→照片</td></tr>
+      <tr><td class="hi">陈素心</td><td>子时，她冒头，只有三个问题额度</td><td>选择问什么</td><td>根据选择给线索 / 沉默 / 反问</td></tr>
+      <tr><td class="hi">私信</td><td>手机收到"摄影师"的消息："别信她"</td><td>查看 / 回复</td><td>消息随后被撤回</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">证据产出：E2「六张照片（含帛画、画像）」、E3「陈素心的回答（依选择）」。</p>
+  <div class="panel">
+    <p><span class="k">关键设计：</span>三个问题额度不是按秒数硬中断，而是按问题数自然结束。玩家可以主动留一个问题到下一天，代价是当天少一条线索。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>05</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">第三章 · 破庙</div></div>
+  <h2 style="margin-top:6mm">Day3<span class="en">CHAPTER 03 · DAY 3</span></h2>
+  <h3>Day3 破庙：线装书与赵铁柱</h3>
+  <div class="loc lat">THE ABANDONED TEMPLE</div>
+  <div class="loc">9‒12 分钟 "变"与"得"</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">引入赵铁柱（村里唯一活人气息），发现阵的线索（线装书），让陈素心从"信息源"变成"可被质疑的对象"。</span></div>
+  </div>
+  <table>
+    <thead><tr><th>节拍</th><th>内容</th><th>玩家动作</th><th>反馈</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">后山</td><td>循抓挠声找到破庙</td><td>探索场景</td><td>发现线装书、卦象图</td></tr>
+      <tr><td class="hi">阅读</td><td>线装书记载"摄六魂，缺一容器"</td><td>翻页阅读</td><td>最后一行被撕掉</td></tr>
+      <tr><td class="hi">赵铁柱</td><td>猎人出现，警告"别往后山走"</td><td>对话 / 质询</td><td>他回避（命硬，邪修挑不上他）</td></tr>
+      <tr><td class="hi">陈素心</td><td>她承认"我不是活人"</td><td>选择追问方向</td><td>她破防（状态：动摇→破防）</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">证据产出：E4「线装书残页」、E5「赵铁柱的证言」。</p>
+  <div class="panel">
+    <p><span class="k">状态迁移：</span>陈素心在这一天必须从"动摇"推进到"破防"，否则 Day4 的地图环节无法成立。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>06</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">第四章 · 拾骨人</div></div>
+  <h2 style="margin-top:6mm">Day4<span class="en">CHAPTER 04 · DAY 4</span></h2>
+  <h3>Day4 拾骨人：林援朝的假地图</h3>
+  <div class="loc lat">THE BONE COLLECTOR</div>
+  <div class="loc">9‒12 分钟 第一个真正的"判"</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">引入林援朝，让玩家面临第一个有代价的二选一（信地图 / 不信地图），产出本作最关键的"被骗后反获线索"设计。</span></div>
+  </div>
+  <table>
+    <thead><tr><th>节拍</th><th>内容</th><th>玩家动作</th><th>反馈</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">林援朝</td><td>守了三十年的拾骨人，拿出一张地图</td><td>查看地图</td><td>地图上标了六个阵眼位置</td></tr>
+      <tr><td class="hi">抉择</td><td>信地图 / 不信地图</td><td>二选一</td><td>见下方分支</td></tr>
+      <tr><td class="hi">分支A</td><td>信：按图走，发现第六个阵眼对不上</td><td>探索</td><td>林援朝改过地图想自己逃 → 隐藏线索</td></tr>
+      <tr><td class="hi">分支B</td><td>不信：自己推演，省一天时间</td><td>推演</td><td>少一条线索，但推进更快</td></tr>
+      <tr><td class="hi">质询</td><td>对质林援朝"你改了地图"</td><td>出示证据</td><td>他锁定（状态：破防→锁定）</td></tr>
+    </tbody>
+  </table>
+  <div class="panel">
+    <p><span class="k">设计核心：</span>选"信"看似浪费时间，但被骗之后拿到的是唯一能识破卦象谜题的线索（歪脖子松树）。这是全作最漂亮的一次"代价换真相"。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>07</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">第五章 · 错卦</div></div>
+  <h2 style="margin-top:6mm">Day5<span class="en">CHAPTER 05 · DAY 5</span></h2>
+  <h3>Day5 错卦：卦象校验谜题</h3>
+  <div class="loc lat">THE FALSE HEXAGRAM</div>
+  <div class="loc">10‒14 分钟 本作最硬的谜题日</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">让玩家用前四天收集的证据，破解卦象校验谜题。谜题与剧情绑死，不是外加小游戏。</span></div>
+    <div class="rule"></div>
+    <div class="f"><span class="k" style="flex:0 0 17mm">谜题机制</span><span class="v">六张卦象卡拖到六个红点上，完成校验。但第六个红点对应西南，地图标的是正南——玩家必须打开第六张照片，放大背景里的歪脖子松树，比对地图方位，才能发现"地图是假的"。<br>这条线索只在 Day4 选了"信地图"的路线才存在。选了"不信"的玩家，此处需要用陈素心的问题额度补足方位信息——这是"额度"机制的第二次兑现。</span></div>
+    <div class="f"><span class="k">通过后</span><span class="v">阵眼方位全部确认，玩家获得"生门"位置。但发现生门需要一个人留下涂血——引出 Day6 的最终抉择。</span></div>
+  </div>
+  <p style="margin-top:5mm">证据产出：E6「卦象校验结果」、E7「真生门方位」。</p>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>08</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">第六章 · 私信</div></div>
+  <h2 style="margin-top:6mm">Day6<span class="en">CHAPTER 06 · DAY 6</span></h2>
+  <h3>Day6 私信四段：商人与怀表</h3>
+  <div class="loc lat">FOUR MESSAGES</div>
+  <div class="loc">9‒12 分钟 "变"与"连"的收束</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">用四条私信把前六天的线索全部串起来，引入商人（干扰项），埋下怀表线索（E9 隐藏物件）。</span></div>
+  </div>
+  <table>
+    <thead><tr><th>私信</th><th>发送者</th><th>内容</th><th>作用</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">第一段</td><td>摄影师</td><td>"照片不是我拍的"</td><td>质疑遗照来源</td></tr>
+      <tr><td class="hi">第二段</td><td>周教授</td><td>"我找到了频率"</td><td>暗示收音机线索</td></tr>
+      <tr><td class="hi">第三段</td><td>林援朝</td><td>"她改了地图，不止一次"</td><td>强化 Day4 发现</td></tr>
+      <tr><td class="hi">第四段</td><td>赵铁柱</td><td>"涂血就停下，我试过"</td><td>引出最终抉择</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">商人机制：Day6 下午商人出现，要求同行。带他 → 可能无意间指出第七处阵眼，也可能帮倒忙（随机）。不带 → 少干扰但少一张人质牌。</p>
+  <p>隐藏物件 E9：怀表口诀。Day6 夜晚陈素心会提到一次，但只在玩家此前至少提及怀表 3 次时才给出完整口诀——否则只给半句。</p>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>09</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">第七章 · 第七夜</div></div>
+  <h2 style="margin-top:6mm">Day7<span class="en">CHAPTER 07 · DAY 7</span></h2>
+  <h3>Day7 第七夜：终局三选一</h3>
+  <div class="loc lat">FINAL NIGHT</div>
+  <div class="loc">8‒10 分钟 五步循环在"判"处被打断</div>
+  <div class="sec">
+    <div class="f"><span class="k">目的</span><span class="v">让玩家面对最终选择。这是"判"的那一步，但终局强行切入——玩家必须在前六天攒够至少两条有效证据，否则此处只能"盲选"。</span></div>
+  </div>
+  <table>
+    <thead><tr><th>阶段</th><th>内容</th><th>判定</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">井边</td><td>六张脸浮起，沈怀谷看见自己的脸在最底下</td><td>反转揭示："阵要留的人是你"</td></tr>
+      <tr><td class="hi">抉择</td><td>三个选项（见下）</td><td>依证据量与状态值判定</td></tr>
+      <tr><td class="hi">结局</td><td>A / B / C 三选一</td><td>各有专属视频过场</td></tr>
+    </tbody>
+  </table>
+  <div class="sec">
+    <h3>三个选项</h3>
+    <div class="f"><span class="k">A</span><span class="v">让赵铁柱涂血，走生门。需 <code>true_location=true</code>（即卦象谜题通过）。赵铁柱变成活死人守村，沈怀谷逃出。</span></div>
+    <div class="f"><span class="k">B</span><span class="v">自己涂血。沈怀谷成为下一任守墓人，循环继续。</span></div>
+    <div class="f"><span class="k">C</span><span class="v">不破阵，带六魂离开。既不破阵也不留下，代价未知，留白最大。</span></div>
+  </div>
+  <div class="panel">
+    <p><span class="k">关键：</span>A 结局只有在玩家破解了卦象谜题（<code>true_location=true</code>）时才"真正完成"。否则走 A 会得到"残破版"——赵铁柱涂血但沈怀谷仍被拉回。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>10</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">结局</div></div>
+  <h2 style="margin-top:6mm">结局<span class="en">ENDINGS</span></h2>
+  <h3>三结局详表</h3>
+  <div class="loc lat">THREE ENDINGS</div>
+  <table>
+    <thead><tr><th style="width:16mm">结局</th><th>触发条件</th><th>结果</th><th>专属内容</th></tr></thead>
+    <tbody>
+      <tr><td class="num">A</td><td class="hi">破阵离开<br>选A + <code>true_location=true</code></td><td>赵铁柱涂血变活死人；沈怀谷走出村子，但魂已归阵眼，三个月内会回来</td><td>视频过场：走出村口的背影 + 手机最后一条消息</td></tr>
+      <tr><td class="num">B</td><td class="hi">留在村里<br>选B（任意状态）</td><td>未破阵，邪修继续沉睡；沈怀谷成为新的守墓人</td><td>视频过场：换上暗红旗袍的主观视角</td></tr>
+      <tr><td class="num">C</td><td class="hi">带六魂离开<br>选C（任意状态）</td><td>既不破阵也不留下，六魂随他离村，代价未知</td><td>视频过场：六张脸在雾中渐次消失</td></tr>
+      <tr><td class="num">E9</td><td class="hi">真结局片段<br>A路线 + 集齐怀表线索 + 解开卦象</td><td>额外一段：陈素心真正解脱（非独立结局，只在A末端追加）</td><td>收音机视频：指针归零，杂音停止</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">口径统一：本作只有 3 个结局。E9 是条件触发的真结局片段，追加在 A 路线末端，不列为第四结局。</p>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>11</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">系统</div></div>
+  <h2 style="margin-top:6mm">证据<span class="en">EVIDENCE</span></h2>
+  <h3>证据链 8+1</h3>
+  <div class="loc lat">EVIDENCE LOG</div>
+  <table>
+    <thead><tr><th style="width:13mm">编号</th><th>证据</th><th>获取日</th><th>作用</th></tr></thead>
+    <tbody>
+      <tr><td class="num">E1</td><td class="hi">今日日期的遗照</td><td>Day1</td><td>证明"被选中的人"没有机会照相 → 照片系伪造</td></tr>
+      <tr><td class="num">E2</td><td class="hi">六张照片（含帛画、画像）</td><td>Day2</td><td>六次轮回的时间线；最早为帛画→画像→照片</td></tr>
+      <tr><td class="num">E3</td><td class="hi">陈素心的回答</td><td>Day2‒6</td><td>依玩家选择给线索，可矛盾可沉默</td></tr>
+      <tr><td class="num">E4</td><td class="hi">线装书残页</td><td>Day3</td><td>"摄六魂，缺一容器"</td></tr>
+      <tr><td class="num">E5</td><td class="hi">赵铁柱的证言</td><td>Day3</td><td>命硬、邪修挑不上他、涂血就停下</td></tr>
+      <tr><td class="num">E6</td><td class="hi">卦象校验结果</td><td>Day5</td><td>确认六个阵眼方位</td></tr>
+      <tr><td class="num">E7</td><td class="hi">真生门方位</td><td>Day5</td><td>需一人留下涂血</td></tr>
+      <tr><td class="num">E8</td><td class="hi">私信四段</td><td>Day6</td><td>串联全部线索</td></tr>
+      <tr><td class="num">E9</td><td class="hi">怀表口诀（隐藏）</td><td>Day6</td><td>只在提及怀表≥3次时给完整口诀 → 解锁真结局片段</td></tr>
+    </tbody>
+  </table>
+  <div class="panel">
+    <p><span class="k">连线规则：</span>玩家可在证据板上自由连线，系统只在"三条关键链"（遗照链 / 卦象链 / 口诀链）完整时给出判定提示。连线本身不强制，但完整连线是"判"成立的必要条件。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>12</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">系统</div></div>
+  <h2 style="margin-top:6mm">AI证人<span class="en">AI WITNESSES</span></h2>
+  <h3>AI 证人：状态迁移与反应</h3>
+  <div class="loc lat">STATE MACHINE</div>
+  <div class="sec">
+    <h3>三个证人</h3>
+    <div class="ck"><b>陈素心（回避型）：</b>越追问越沉默，但破防后给核心线索。</div>
+    <div class="ck"><b>林援朝（配合型）：</b>表面配合，实际改了地图想自己逃。证据充分时锁定。</div>
+    <div class="ck"><b>赵铁柱（说真话型）：</b>命硬、不撒谎，但信息有限。只在涂血相关问题上回避。</div>
+  </div>
+  <table style="margin-top:5mm">
+    <thead><tr><th>状态</th><th>阈值</th><th>反应</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">正常</td><td>初始</td><td>说场面话，回避关键问题</td></tr>
+      <tr><td class="hi">动摇</td><td>被质询 1 次</td><td>语气松动，透露半句</td></tr>
+      <tr><td class="hi">破防</td><td>被出示关键证据</td><td>说出真相，情绪激动</td></tr>
+      <tr><td class="hi">锁定</td><td>完成该证人全部信息</td><td>不再有新信息，只重复</td></tr>
+    </tbody>
+  </table>
+  <div class="panel">
+    <p><span class="k">AI 边界：</span>只演不生、响应 &lt;1.5 秒、<code>evidence_log</code> 禁止前后矛盾、报错播手写回避句（如"我不想说这个"）。详见《游戏机制设计文档》。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>13</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">系统</div></div>
+  <h2 style="margin-top:6mm">交互<span class="en">IMMERSIVE INPUT</span></h2>
+  <h3>拟真交互四件套</h3>
+  <div class="loc lat">FOUR GESTURES</div>
+  <table style="margin-top:3mm">
+    <thead><tr><th>交互</th><th>操作</th><th>作用</th><th>出现日</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">支付房费</td><td>输入金额 / 扫码</td><td>建立"正常世界"的锚点，反衬异常</td><td>Day1</td></tr>
+      <tr><td class="hi">手机信号</td><td>信号一格一格消失</td><td>切断退路感；私信是唯一的外部信息</td><td>全程</td></tr>
+      <tr><td class="hi">论坛发私信</td><td>打字发送，消息被撤回</td><td>暗示有人在监视</td><td>Day2/6</td></tr>
+      <tr><td class="hi">收音机调频</td><td>拖动频率指针</td><td>找到周教授的频率 → 连接外界</td><td>Day6</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">设计原则：四个交互都是玩家亲手操作的小动作，成本极低但仪式感极强。它们不构成谜题，只构成参与感。</p>
+  <div class="panel">
+    <p><span class="k">注意：</span>收音机是唯一"连接外界"的画面，必须配合视频节点。指针颤动 + 杂音中浮出人声 = "声音能穿过去，人穿不过去"。</p>
+  </div>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>14</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">节奏</div></div>
+  <h2 style="margin-top:6mm">节奏<span class="en">PACING</span></h2>
+  <h3>节奏锚点：每 45 秒一个小高潮</h3>
+  <div class="loc lat">BEAT MAP</div>
+  <div class="sec">
+    <div class="f"><span class="k" style="flex:0 0 17mm">全局节奏</span><span class="v">正式版约 47 个最小反馈点。每 15 秒一个新反馈（新线索 / 新对话 / 新音效），每 45 秒一个小高潮（反转 / 揭示 / 抉择）。</span></div>
+  </div>
+  <table style="margin-top:3mm">
+    <thead><tr><th>锚点</th><th>时刻</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">第一次惊吓</td><td>Day1 深夜</td><td>墙里抓挠声 + 黑屏</td></tr>
+      <tr><td class="hi">第一次连线</td><td>Day2</td><td>六张照片排序，发现时间线</td></tr>
+      <tr><td class="hi">第一次被骗</td><td>Day4</td><td>信地图 → 第六阵眼对不上</td></tr>
+      <tr><td class="hi">第一次破解</td><td>Day5</td><td>卦象校验通过（需 Day4 线索）</td></tr>
+      <tr><td class="hi">第一次串联</td><td>Day6</td><td>私信四段把全部线索串起</td></tr>
+      <tr><td class="hi">最终反转</td><td>Day7 井边</td><td>"阵要留的人是你"</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">节拍图逻辑：六个锚点等距分布，每约 10 分钟一个。它们之间的段落负责"铺垫 + 反馈"，不能有任何一段超过 3 分钟没有新信息。</p>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>15</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">埋点</div></div>
+  <h2 style="margin-top:6mm">埋点<span class="en">EASTER EGG</span></h2>
+  <h3>隐藏要素埋点：E9 怀表</h3>
+  <div class="loc lat">HIDDEN OBJECT</div>
+  <div class="sec">
+    <div class="f"><span class="k" style="flex:0 0 17mm">设计原则</span><span class="v">隐藏要素必须提前埋点，否则玩家必然漏掉。E9 的埋点分布在 Day1‒Day6，共 6 处提及机会，需至少命中 3 处才在 Day6 给出完整口诀。</span></div>
+  </div>
+  <table style="margin-top:3mm">
+    <thead><tr><th style="width:14mm">埋点</th><th>位置</th><th>触发</th></tr></thead>
+    <tbody>
+      <tr><td class="num">①</td><td class="hi">Day1 房间抽屉</td><td>玩家主动翻找 → 看见怀表（不自动拾取）</td></tr>
+      <tr><td class="num">②</td><td class="hi">Day2 陈素心问答</td><td>问"你等了多久" → 她提到"怀表还在走"</td></tr>
+      <tr><td class="num">③</td><td class="hi">Day3 线装书批注</td><td>阅读批注 → 提及"怀表口诀"四字</td></tr>
+      <tr><td class="num">④</td><td class="hi">Day4 质询林援朝</td><td>出示 E1 → 他反问"你找到那块表了吗"</td></tr>
+      <tr><td class="num">⑤</td><td class="hi">Day5 卦象校验</td><td>校验通过 → 卦象旁浮现怀表纹样</td></tr>
+      <tr><td class="num">⑥</td><td class="hi">Day6 私信第二段</td><td>周教授消息 → "表还在走，她也还在等"</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">≥3 命中：Day6 陈素心给出完整口诀"子午相冲，破阵即归"。</p>
+  <p>&lt;3 命中：只给半句"子午……即归"，玩家需在终局自行补全（仍可走 A，但 E9 片段不触发）。</p>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>16</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 七日分镜脚本</div><div class="tag">口径</div></div>
+  <h2 style="margin-top:6mm">口径<span class="en">CANON</span></h2>
+  <h3>口径统一说明</h3>
+  <div class="loc lat">CANON NOTES</div>
+  <table style="margin-top:3mm">
+    <thead><tr><th>项目</th><th>本作口径</th><th>备注</th></tr></thead>
+    <tbody>
+      <tr><td class="hi">主角名</td><td>沈怀谷</td><td>统一，不使用其他命名</td></tr>
+      <tr><td class="hi">结局数</td><td>3 个</td><td>E9 为条件触发的真结局片段，不列第四</td></tr>
+      <tr><td class="hi">摄影师</td><td>被选中者，遗照系伪造</td><td>非"器灵"设定</td></tr>
+      <tr><td class="hi">陈素心</td><td>六轮唯一漏网的魂，被困在老板娘体内</td><td>非"另一半人格"</td></tr>
+      <tr><td class="hi">老板娘</td><td>邪修的守墓人，活近两百年，真反派</td><td>非陈素心的另一人格</td></tr>
+      <tr><td class="hi">赵铁柱</td><td>命硬，邪修挑不上，三十多年前追野猪入山</td><td>村里唯一活人气息</td></tr>
+      <tr><td class="hi">林援朝</td><td>1966 年下乡知青，守三十年，改地图想自逃</td><td>被村里"压住"</td></tr>
+      <tr><td class="hi">邪修</td><td>摄六魂缺一容器，需同命格者</td><td>不写具体困局年数</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:5mm">本脚本为单轨正式版（60‒90 分钟）。如需 12‒15 分钟短版，请参照节奏锚点页（P15）的六个锚点压缩，每个锚点保留 1‒2 分钟节点。</p>
+  <p>下一步：本分镜脚本已交付，可据此进入《关卡设计文档》阶段（节点级），将每个章节拆为可填关卡的节点。</p>
+  <div class="rule"></div>
+  <p class="lead">秦岭归云 · 七日分镜脚本</p>
+  <p class="small">单轨正式版 · 主角 沈怀谷 · 60‒90 分钟 · 3 结局</p>
+  <div class="ft"><div>七日分镜脚本 · 单轨正式版</div><div class="mid">秦 岭 归 云</div><div>17</div></div>
+</div>

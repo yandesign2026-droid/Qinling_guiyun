@@ -1,0 +1,243 @@
+<meta charset="utf-8">
+<title>秦岭归云 · 制作路径与技术选型 v0.1</title>
+<style>
+@page { size: A4; margin: 0; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #F2F1ED; color: #1A1917;
+  font-family: "Songti SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 9.5pt; line-height: 1.78;
+}
+.page { width: 210mm; height: 297mm; padding: 16mm 16mm 13mm; position: relative; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+.hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2.5mm; border-bottom: .8pt solid #C9C5BC; }
+.hd .l { font-size: 7.5pt; color: #7C7871; letter-spacing: .1em; }
+.tag { background: #A32D2D; color: #FFFFFF; font-size: 7.5pt; padding: .8mm 2.4mm; border-radius: 2px; letter-spacing: .12em; }
+.ft { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: #8A867E; padding-top: 2.5mm; border-top: .8pt solid #C9C5BC; }
+.ft .mid { color: #C0392B; letter-spacing: .3em; }
+.lat { font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+h1 { font-size: 22pt; font-weight: 700; margin: 12mm 0 2mm; letter-spacing: .04em; }
+h1 .ac { color: #C0392B; }
+.lead-en { font-size: 8pt; color: #7C7871; margin-bottom: 7mm; }
+h2 { font-size: 13pt; font-weight: 700; margin: 0 0 3mm; }
+h2 .en { font-size: 7.5pt; font-weight: 400; color: #7C7871; letter-spacing: .14em; margin-left: 2.5mm; }
+h3 { font-size: 11pt; font-weight: 700; margin: 0 0 2mm; }
+.rule { height: .8pt; background: #C9C5BC; margin: 4mm 0; }
+p { margin: 0 0 3mm; color: #3A3733; }
+.lead { color: #26241F; }
+.small { font-size: 8pt; color: #6B675F; line-height: 1.7; }
+.meta { border-top: .8pt solid #C9C5BC; margin-top: 4mm; }
+.meta div { display: flex; border-bottom: .5pt solid #DCD8D0; padding: 1.6mm 0; font-size: 8.5pt; }
+.meta .k { flex: 0 0 22mm; color: #7C7871; }
+.meta .v { flex: 1; color: #3A3733; }
+.panel { background: #FFFFFF; border: .6pt solid #DDD9D1; border-left: 2.4pt solid #C0392B; border-radius: 3px; padding: 5mm 6mm; margin: 5mm 0; }
+.panel .k { color: #C0392B; font-weight: 700; }
+.panel p:last-child { margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+th { text-align: left; font-weight: 500; color: #7C7871; font-size: 7.5pt; letter-spacing: .06em; padding: 1.6mm 2mm; border-bottom: .8pt solid #C9C5BC; }
+td { padding: 1.7mm 2mm; border-bottom: .5pt solid #DCD8D0; color: #3A3733; vertical-align: top; }
+td.num { color: #C0392B; font-weight: 700; width: 9mm; }
+td.hi { color: #1A1917; font-weight: 500; }
+.sec { border-top: .8pt solid #C9C5BC; padding-top: 4mm; margin-top: 4.5mm; }
+.sec > .num { display: inline-block; background: #A32D2D; color: #FFFFFF; font-size: 7pt; padding: .8mm 2.2mm; border-radius: 2px; letter-spacing: .1em; }
+.loc { font-size: 7.5pt; color: #7C7871; margin: 2.2mm 0; letter-spacing: .02em; }
+.f { display: flex; gap: 3mm; margin-bottom: 1.4mm; font-size: 9pt; line-height: 1.72; }
+.f .k { flex: 0 0 13mm; color: #C0392B; }
+.f .v { flex: 1; color: #3A3733; }
+.f .v b { color: #1A1917; font-weight: 700; }
+.f .v code { font-family: "SF Mono", Menlo, monospace; font-size: 8pt; color: #96271C; background: #EAE7E0; padding: 0 .8mm; border-radius: 2px; }
+.ck { font-size: 8.5pt; color: #3A3733; padding: 1.4mm 0; border-bottom: .5pt solid #DCD8D0; }
+.ck b { color: #1A1917; font-weight: 700; }
+.grid3 { display: flex; gap: 4mm; }
+.grid3 > div { flex: 1; }
+</style>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 制作路径</div><div class="tag">PRODUCTION · V0.1</div></div>
+  <h1 style="margin:13mm 0 2.5mm;font-size:30pt;letter-spacing:.08em">秦岭<span class="ac">归云</span></h1>
+  <p style="font-size:13pt;color:#1A1917;margin:0 0 1.5mm">制作路径与技术选型</p>
+  <p style="margin-bottom:5mm">从三份设计文档到能玩的 Demo，缺什么、用什么、花多少</p>
+  <div class="rule"></div>
+  <p class="lead">你有结构、有数值、有人物。缺的是「说什么」的文本层、感官资产层，以及一个能跑起来的壳。这三层不必串行——下面给出并行路径、工具选型与成本测算。</p>
+  <div class="meta">
+    <div><span class="k">现状</span><span class="v">关卡设计文档（17 页） · 人物角色卡（14 页） · 七日分镜脚本（17 页）</span></div>
+    <div><span class="k">卡点</span><span class="v">台词库 B 尚未动笔——任何引擎现在都搭不出能玩的东西</span></div>
+    <div><span class="k">建议第一步</span><span class="v">Day1 垂直切片（N01–N04，约 10 分钟流程），验证手感与工时</span></div>
+    <div><span class="k">测算时点</span><span class="v">2026 年 10 月 · 价格为公开渠道区间，会变动，下单前请复核</span></div>
+  </div>
+  <div class="ft"><div>制作路径与技术选型 · v0.1</div><div class="mid">秦 岭 归 云</div><div>01</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 制作路径</div><div class="tag">缺口诊断</div></div>
+
+  <h2 style="margin-top:6mm">一、现在能进引擎吗<span class="en">Readiness</span></h2>
+  <p><b>差一层，但只差一层。</b>把内容与生产要素堆成六层看：</p>
+  <table>
+    <tr><th style="width:26mm">层</th><th style="width:52mm">内容</th><th style="width:22mm">状态</th><th>说明</th></tr>
+    <tr><td class="hi">结构层</td><td>25 节点的依赖与产出</td><td>已有</td><td>可以直接翻译成引擎流程图</td></tr>
+    <tr><td class="hi">数值层</td><td>变量、阈值、判定逻辑</td><td>已有</td><td>12 个全局变量 + 三档结局门槛，够用</td></tr>
+    <tr><td class="hi">角色层</td><td>11 角色的执念与功能</td><td>已有</td><td>每个角色都对应一个动词，已过滤过</td></tr>
+    <tr><td class="hi">剧情层</td><td>七天节拍与三结局定义</td><td>已有</td><td>分镜脚本 P10–P11 已完整定义 A/B/C/E9</td></tr>
+    <tr><td class="hi" style="color:#C0392B">文本层</td><td>对白、选项、旁白、UI 文案</td><td style="color:#C0392B">缺</td><td><b>唯一硬卡点</b>。四个证人 × 四状态 + 问句库 + 老板娘半真半假信息源</td></tr>
+    <tr><td class="hi" style="color:#C0392B">资产层</td><td>场景图、立绘、视频、音效</td><td style="color:#C0392B">缺</td><td>缺一份《视觉与音效设定》，也缺资产清单</td></tr>
+    <tr><td class="hi" style="color:#C0392B">运行层</td><td>引擎 + 拟真手机界面</td><td style="color:#C0392B">缺</td><td>还没有一行能跑的东西</td></tr>
+  </table>
+
+  <div class="panel">
+    <p style="margin:0"><span class="k">关键判断：</span>不要被《口径冲突补丁》里那 8 项待决卡住。其中只有 <b>03 涂血</b>和 <b>08 第 4 个节点</b>会影响少量台词，其余 6 项改的是数值表和节点表，不影响你先动笔。<b>现在可以写的台词约占全剧 80%</b>，等框架跑起来再回头补。</p>
+  </div>
+
+  <div class="rule"></div>
+
+  <h2>二、这套设计的技术形态是什么<span class="en">Shape of the Thing</span></h2>
+  <p>不是视觉小说。看节点里的交互方式：<b>支付房费要输金额、照片要双指放大、六张照片拖到时间轴排序、卦象卡拖到红点、收音机拖频率指针、地图看六阵眼、怀表看内侧刻字</b>——这是一套拟真手机 / 桌面界面的操作。</p>
+  <p>加上非叙述节点：N17 收音机 30 秒视频、N19 井边反转视频、N21 三结局专属视频过场。所以它的形态是：</p>
+  <p class="lead"><b>「手机拟真 UI 为主 + 少量视频节点」的调查推理互动叙事</b>，参照系是《流言侦探》那一类，不是《隐形守护者》，也不是 Ren'Py 那种对话框在屏幕下方的视觉小说。</p>
+  <p>这个判断直接决定了工具选型——详见下一页。</p>
+
+  <div class="ft"><div>制作路径与技术选型 · v0.1</div><div class="mid">秦 岭 归 云</div><div>02</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 制作路径</div><div class="tag">工具选型</div></div>
+
+  <h2 style="margin-top:6mm">三、工具与模型选型<span class="en">Tool Selection</span></h2>
+  <p class="small">选型前提：国内可用、单人可操作、成本可控、能长成正式产品。</p>
+  <table>
+    <tr><th style="width:22mm">环节</th><th style="width:44mm">首选</th><th style="width:38mm">备选</th><th>理由</th></tr>
+    <tr><td class="num">台词起草</td><td class="hi">Claude / Gemini</td><td>GPT、DeepSeek</td><td>要同时记住 11 个角色各自的说话方式与「绝对不能说什么」。老板娘的不可信靠「说得太多太顺」，这种分寸 AI 起草后<b>必须你亲手过一遍</b></td></tr>
+    <tr><td class="num">分支逻辑</td><td class="hi">Ink + inkjs</td><td>Twine（最快）/ Yarn Spinner（进 Unity）</td><td>你这套有 12 个全局变量、三档结局门槛、证人状态序列。Ink 的 <code>VAR</code> / <code>knots</code> / 条件分支就是为这种结构设计的，纯文本脚本也方便版本管理</td></tr>
+    <tr><td class="num">前端界面</td><td class="hi">HTML / CSS / JS + inkjs</td><td>Unity + Ink Unity Integration</td><td>你要的拟真交互（拖拽排序、捏合缩放、拖指针、输入金额、手机震动）<b>全是前端原生能力</b>。上 Unity 反而要把每套交互重新造一遍。先做网页 Demo，验证后要上架再考虑打包</td></tr>
+    <tr><td class="num">静态图</td><td class="hi">即梦 Seedream / Nano Banana Pro</td><td>Midjourney</td><td>第一要求不是漂亮，是<b>同一张脸的多个状态一致</b>。先用参考图把 11 张脸锁死，再批量生成状态</td></tr>
+    <tr><td class="num">视频节点</td><td class="hi">Seedance 2.5（即梦入口）</td><td>可灵 Kling 3.0</td><td>原生 4K、单条最长 30 秒、支持多图参考锁角色、国内可用且有每日免费额度。可灵性价比更高、动作更自然，做井边那种人物运动好用。<b>Veo 3.1 / Sora 2 质感好，但国内可用性是现实问题，不建议作为主力</b></td></tr>
+    <tr><td class="num">语音</td><td class="hi">Azure TTS / 剪映 / ElevenLabs</td><td>真人 CV（预算充足时）</td><td>周教授从头到尾只有声音，「找了三十年只找到频率」全靠声线撑，值得单独定一条音色，别和其他角色共用</td></tr>
+    <tr><td class="num">音乐音效</td><td class="hi">Suno + 剪映音效库</td><td>Artlist</td><td>环境音清单里那几项（雾中风声、墙里抓挠、19 米波段杂音、脚步材质从羊毛地毯到石板再到水泥的变化）是这类游戏的命，别省钱</td></tr>
+    <tr><td class="num">发行</td><td class="hi">先网页 Demo，再决定</td><td>TapTap / Steam / 微信小程序</td><td>网页 Demo 能最快拿到真实反馈。别急着定发行渠道——先知道这东西有没有人愿意玩完</td></tr>
+  </table>
+
+  <div class="panel" style="margin-top:4mm">
+    <p style="margin:0"><span class="k">不建议：</span>Ren'Py。它是做视觉小说的，对话框在屏幕下方、分支靠菜单。你这套要的是全屏拟真 UI 与自由探索，用 Ren'Py 会把你逼回 VN 的形态，等于改设计。</p>
+  </div>
+
+  <div class="ft"><div>制作路径与技术选型 · v0.1</div><div class="mid">秦 岭 归 云</div><div>03</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 制作路径</div><div class="tag">资产与成本</div></div>
+
+  <h2 style="margin-top:6mm">四、资产清单测算<span class="en">Asset Count</span></h2>
+  <p>按 25 个节点逐日点出来的，不是拍脑袋。</p>
+  <table>
+    <tr><th style="width:26mm">类别</th><th style="width:20mm">数量</th><th>明细</th></tr>
+    <tr><td class="num">场景背景</td><td class="hi">15–20 张</td><td>车窗外/村口、客栈前台、客房（昼/夜）、阁楼、窗玻璃、后山、破庙、猎人家、青石牌坊、歪脖子树、卦象桌、收音机桌、井边、终局阵眼</td></tr>
+    <tr><td class="num">角色立绘</td><td class="hi">约 16 张</td><td>老板娘 3（含暗红旗袍）、陈素心 3（含与老板娘共用身体的切换）、赵铁柱 2、林援朝 3、商人 2、孙明远 1、摄影师 1、沈怀谷的脸 1（N19 井底用，其余第一人称不露脸）。周教授 0——他只有声音</td></tr>
+    <tr><td class="num">道具 / UI 图</td><td class="hi">约 27 张</td><td>遗照 1、六张照片 6、线装书含批注页 1、老地图 1、六张卦象卡 6、怀表（含内侧刻字特写）1、收音机 1、算盘吊坠 1、井中六张脸 1、线索条若干 8</td></tr>
+    <tr><td class="num">视频节点</td><td class="hi">5–7 段</td><td>N17 收音机 30 秒、N19 井边反转、N21 三结局专属各 1 段，另加可能的 Day0 开场。每段 10–30 秒</td></tr>
+    <tr><td class="num">音频</td><td class="hi">全剧</td><td>四条角色声线 + 环境音包（雾、风、抓挠、19 米波段杂音、雨、脚步材质变化）+ 主题音乐 2–3 段</td></tr>
+  </table>
+  <p class="small">静态图合计约 <b>58 张成品</b>。按出图抽卡率 1:4 折算，实际要生成约 <b>230 张</b>。</p>
+
+  <div class="rule"></div>
+
+  <h2>五、成本测算<span class="en">Cost Estimate</span></h2>
+  <table>
+    <tr><th style="width:30mm">项目</th><th style="width:34mm">区间（人民币）</th><th>口径</th></tr>
+    <tr><td class="num">静态图</td><td class="hi">¥200 – 600</td><td>230 次生成，含会员与重生成。国产平台有每日免费额度，实际可压到更低</td></tr>
+    <tr><td class="num">视频节点</td><td class="hi">¥300 – 800</td><td>7 段 × 抽卡 5 次 = 35 次。走 Seedance 取上限、走可灵取下限</td></tr>
+    <tr><td class="num">配音</td><td class="hi">¥0 – 300（AI）<br>¥3,000 – 15,000（真人 CV）</td><td>AI TTS 国产平台多有免费额度。真人 CV 按 11 角色 × 台词量估</td></tr>
+    <tr><td class="num">音乐音效</td><td class="hi">¥100 – 500</td><td>Suno 会员 + 音效库授权</td></tr>
+    <tr><td class="num">引擎</td><td class="hi">¥0（自己用 Ink）<br>¥8,000 – 30,000（外包）</td><td>Ink 与 Twine 均开源免费。外包做完整前端的价格区间</td></tr>
+    <tr><td class="num" style="color:#1A1917">AI 资产小计</td><td class="hi" style="color:#1A1917">¥600 – 2,400</td><td>不含你自己的工时，不含真人配音</td></tr>
+  </table>
+
+  <div class="panel">
+    <p style="margin:0"><span class="k">先把 ¥0 的那部分花掉。</span>Day1 垂直切片只需 2–3 张场景 + 1 张老板娘立绘 + 1 张遗照 + 一段抓挠音效，代币成本接近于零。<b>真正贵的不是钱，是你判断「手感对不对」的时间。</b></p>
+  </div>
+
+  <div class="ft"><div>制作路径与技术选型 · v0.1</div><div class="mid">秦 岭 归 云</div><div>04</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 制作路径</div><div class="tag">排期</div></div>
+
+  <h2 style="margin-top:6mm">六、三条轨并行，不是串行<span class="en">Parallel Tracks</span></h2>
+  <table>
+    <tr><th style="width:16mm">轨</th><th style="width:40mm">做什么</th><th style="width:26mm">依赖谁</th><th>产出</th></tr>
+    <tr><td class="num">A 文本</td><td class="hi">台词库 B</td><td>谁都不依赖</td><td>4 证人 × 4 状态全量对白、陈素心问句库、老板娘「半真半假」信息源表、道具与 UI 文案</td></tr>
+    <tr><td class="num">B 技术</td><td class="hi">UI 壳 + 状态机</td><td>只依赖 A 的节点框架</td><td>用占位图先把交互跑通：支付、抽屉、照片放大、拖拽排序、拖指针、证据板</td></tr>
+    <tr><td class="num">C 资产</td><td class="hi">风格设定 → 出图出视频</td><td>依赖 A 定下角色状态</td><td>《视觉与音效设定》→ 11 张脸锁定 → 场景 → 道具 → 视频节点 → 音频</td></tr>
+  </table>
+  <p class="small">B 轨<b>不要等 C 轨</b>。用灰色方块当占位图，先把交互手感做出来。这条错了很多团队：先画三个月图，最后发现交互不对，图全废。</p>
+
+  <div class="rule"></div>
+
+  <h2>七、第一周：Day1 垂直切片<span class="en">Vertical Slice</span></h2>
+  <p>按「最小可玩集」的思路，<b>先做 N01–N04 四个节点，约 10 分钟流程</b>。这四个节点刚好覆盖全部核心技术难点：</p>
+  <table>
+    <tr><th style="width:14mm">节点</th><th style="width:44mm">要做什么</th><th>验证的技术点</th></tr>
+    <tr><td class="num">N01</td><td class="hi">前夜入村</td><td>氛围层：视频/图层叠加速度、手机震动 API、环境音混入</td></tr>
+    <tr><td class="num">N02</td><td class="hi">入住登记</td><td><b>拟真支付（输入金额）</b>、抽屉点击、埋点①是否写入 <code>mention_watch</code></td></tr>
+    <tr><td class="num">N03</td><td class="hi">遗照发现</td><td><b>双指放大</b>、查看日期触发 E1、证据入袋动画</td></tr>
+    <tr><td class="num">N04</td><td class="hi">墙里抓挠</td><td>黑屏 + 音效 + 震动组合、质询三选一、<code>st_boss</code> 状态变化、证据板点亮</td></tr>
+  </table>
+
+  <div class="panel">
+    <p style="margin:0"><span class="k">做完这个切片就知道了：</span>① 这套拟真 UI 的手感对不对；② 后面 21 个节点的<b>真实工时</b>是多少（现在任何排期都是猜的）；③ 你要不要继续自己做，还是该找技术合伙人；④ 还要不要保留视频节点——那段成本占三分之一。</p>
+  </div>
+
+  <div class="rule"></div>
+
+  <h2>八、四个坑<span class="en">Risks</span></h2>
+  <div class="ck"><b>角色一致性是最大坑。</b>陈素心与老板娘共用一具身体，切换靠「脖子僵→眼左下→肩收背弓→指节蜷→声下掉」这套身体信号。跨几十张图保持同一张脸，必须用参考图锁定工作流，别指望一次生成。</div>
+  <div class="ck"><b>别一口气生成全剧资产。</b>先用 Day1 切片跑通，确认视觉方向，再批量出。全剧 58 张图一次性做完，方向错了就是全废。</div>
+  <div class="ck"><b>体量要现实。</b>60–90 分钟对单人来说是很大的工程量。先完成 18 节点最小可玩集（35–45 分钟），完成本身就是胜利，剩下的慢慢补。</div>
+  <div class="ck"><b>题材要先过合规。</b>摄魂、遗照、井底封阵、民间信仰这类内容，若要上国内平台公开发行，建议先了解目标渠道的审核口径，避免做到一半被打回。</div>
+
+  <div class="ft"><div>制作路径与技术选型 · v0.1</div><div class="mid">秦 岭 归 云</div><div>05</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 制作路径</div><div class="tag">下一步</div></div>
+
+  <h2 style="margin-top:6mm">九、下一步我可以先替你做什么<span class="en">Immediate Next</span></h2>
+  <p>按投入产出排序，你挑，我做：</p>
+
+  <div class="sec" style="border-top:none;margin-top:3mm">
+    <div class="num">建议 01</div>
+    <h3 style="margin-top:2mm">台词库骨架 · Day1 全量</h3>
+    <div class="loc">先把 N01–N04 四个节点的文本写满，约 3,000–4,000 字</div>
+    <div class="f"><div class="k">产出</div><div class="v">每条对白、每个选项的文字、系统提示文案、旁白、手机界面上的所有字</div></div>
+    <div class="f"><div class="k">价值</div><div class="v">写完立刻能进 Ink 或直接进 Demo。<b>这是唯一卡住引擎的层</b></div></div>
+  </div>
+
+  <div class="sec">
+    <div class="num">建议 02</div>
+    <h3>《视觉与音效设定》</h3>
+    <div class="loc">C 轨的前置文档</div>
+    <div class="f"><div class="k">产出</div><div class="v">画幅与基调、11 个角色的形象描述与音色设定、场景清单、「老板娘是全场唯一保留色彩」这条怎么落到画面上、环境音清单对应到每个节点</div></div>
+    <div class="f"><div class="k">价值</div><div class="v">有了它才能批量出图不跑偏，也才能给别人做</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="num">建议 03</div>
+    <h3>口径补丁 v1.2</h3>
+    <div class="loc">修订我已发现的两处错误</div>
+    <div class="f"><div class="k">改什么</div><div class="v">结局 A/B/C 已由分镜脚本定义（我上一版写「未定义」是错的）；「涂血」不是完全缺失，是<b>关卡节点没有落点</b>——这两处要改掉</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="num">建议 04</div>
+    <h3>Day1 Demo 原型</h3>
+    <div class="loc">直接做一个能玩的网页</div>
+    <div class="f"><div class="k">产出</div><div class="v">单页 HTML：手机壳 UI、支付输入、照片放大、证据板、<code>st_boss</code> 状态机，灰色占位图</div></div>
+    <div class="f"><div class="k">价值</div><div class="v">这是判断「要不要继续做」的最小成本验证</div></div>
+  </div>
+
+  <div class="panel" style="margin-top:6mm">
+    <p style="margin:0"><span class="k">我的建议：</span>先做 <b>01 台词库骨架</b>。它零成本、零返工风险，而且做完那一刻你就有了「能给别人看的东西」——这比再多一份图纸有用得多。</p>
+  </div>
+
+  <div class="ft"><div>制作路径与技术选型 · v0.1</div><div class="mid">秦 岭 归 云</div><div>06</div></div>
+</div>

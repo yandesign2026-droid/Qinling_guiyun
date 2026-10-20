@@ -1,0 +1,675 @@
+<meta charset="utf-8">
+<title>秦岭归云 · 关卡设计文档</title>
+<style>
+@page { size: A4; margin: 0; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #F2F1ED; color: #1A1917;
+  font-family: "Songti SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 9.5pt; line-height: 1.78;
+}
+/* ===== 页面容器 ===== */
+.page { width: 210mm; height: 297mm; padding: 16mm 16mm 13mm; position: relative; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+/* ===== 页眉 / 页脚 ===== */
+.hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2.5mm; border-bottom: .8pt solid #C9C5BC; }
+.hd .l { font-size: 7.5pt; color: #7C7871; letter-spacing: .1em; }
+.tag { background: #A32D2D; color: #FFFFFF; font-size: 7.5pt; padding: .8mm 2.4mm; border-radius: 2px; letter-spacing: .12em; font-family: "Songti SC", serif; }
+.ft { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: #8A867E; padding-top: 2.5mm; border-top: .8pt solid #C9C5BC; }
+.ft .mid { color: #C0392B; letter-spacing: .3em; }
+/* ===== 拉丁字母辅助样式 ===== */
+.lat { font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+/* ===== 标题 ===== */
+h1 { font-size: 22pt; font-weight: 700; margin: 12mm 0 2mm; letter-spacing: .04em; }
+h1 .ac { color: #C0392B; }
+.lead-en { font-size: 8pt; color: #7C7871; margin-bottom: 7mm; }
+h2 { font-size: 13pt; font-weight: 700; margin: 0 0 3mm; }
+h2 .en { font-size: 7.5pt; font-weight: 400; color: #7C7871; letter-spacing: .14em; margin-left: 2.5mm; }
+h3 { font-size: 11pt; font-weight: 700; margin: 0 0 2mm; }
+.rule { height: .8pt; background: #C9C5BC; margin: 4mm 0; }
+/* ===== 正文 ===== */
+p { margin: 0 0 3mm; color: #3A3733; }
+.lead { color: #26241F; }
+.small { font-size: 8pt; color: #6B675F; line-height: 1.7; }
+/* ===== 封面元信息（封面页"主角/时长/结局"那组） ===== */
+.meta { border-top: .8pt solid #C9C5BC; margin-top: 4mm; }
+.meta div { display: flex; border-bottom: .5pt solid #DCD8D0; padding: 1.6mm 0; font-size: 8.5pt; }
+.meta .k { flex: 0 0 22mm; color: #7C7871; }
+.meta .v { flex: 1; color: #3A3733; }
+/* ===== 面板：白底 + 左侧红竖条 ===== */
+.panel { background: #FFFFFF; border: .6pt solid #DDD9D1; border-left: 2.4pt solid #C0392B; border-radius: 3px; padding: 5mm 6mm; margin: 5mm 0; }
+.panel .k { color: #C0392B; font-weight: 700; }
+.panel p:last-child { margin-bottom: 0; }
+/* ===== 表格 ===== */
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+th { text-align: left; font-weight: 500; color: #7C7871; font-size: 7.5pt; letter-spacing: .06em; padding: 1.6mm 2mm; border-bottom: .8pt solid #C9C5BC; }
+td { padding: 1.7mm 2mm; border-bottom: .5pt solid #DCD8D0; color: #3A3733; vertical-align: top; }
+td.num { color: #C0392B; font-weight: 700; width: 9mm; }
+td.hi { color: #1A1917; font-weight: 500; }
+/* ===== 章节 / 区块：顶部细横线 ===== */
+.sec { border-top: .8pt solid #C9C5BC; padding-top: 4mm; margin-top: 4.5mm; }
+.sec > .num { display: inline-block; background: #A32D2D; color: #FFFFFF; font-size: 7pt; padding: .8mm 2.2mm; border-radius: 2px; letter-spacing: .1em; }
+.loc { font-size: 7.5pt; color: #7C7871; margin: 2.2mm 0; letter-spacing: .02em; }
+/* ===== 字段行：左标签红、右内容 ===== */
+.f { display: flex; gap: 3mm; margin-bottom: 1.4mm; font-size: 9pt; line-height: 1.72; }
+.f .k { flex: 0 0 13mm; color: #C0392B; }
+.f .v { flex: 1; color: #3A3733; }
+.f .v b { color: #1A1917; font-weight: 700; }
+.f .v code { font-family: "SF Mono", Menlo, monospace; font-size: 8pt; color: #96271C; background: #EAE7E0; padding: 0 .8mm; border-radius: 2px; }
+/* ===== 金句引用（角色卡每页底部那句） ===== */
+.quote { border-left: 2.4pt solid #C0392B; padding: 1mm 0 1mm 4mm; margin: 4mm 0 2mm; font-size: 10pt; color: #1A1917; line-height: 1.7; }
+.quote-src { font-size: 7.5pt; color: #7C7871; text-align: right; font-family: "Helvetica Neue", Arial, sans-serif; letter-spacing: .12em; }
+/* ===== 勾选清单 ===== */
+.ck { font-size: 8.5pt; color: #3A3733; padding: 1.4mm 0; border-bottom: .5pt solid #DCD8D0; }
+.ck b { color: #1A1917; font-weight: 700; }
+/* ===== 双列 / 三列 ===== */
+.grid2 { display: flex; gap: 5mm; }
+.grid2 > div { flex: 1; }
+.grid3 { display: flex; gap: 4mm; }
+.grid3 > div { flex: 1; }
+</style>
+<style>
+.cp td, .cp th { padding: .75mm 1.8mm; }
+.sec { margin-top: 3.2mm; padding-top: 3mm; }
+</style>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档</div><div class="tag">LEVEL DESIGN</div></div>
+  <h1 style="margin:13mm 0 2.5mm;font-size:30pt;letter-spacing:.08em">秦岭<span class="ac">归云</span></h1>
+  <p style="font-size:13pt;color:#1A1917;margin:0 0 1.5mm">关卡设计文档</p>
+  <p style="margin-bottom:5mm">节点级关卡文档 + 数值设计表</p>
+  <div class="rule"></div>
+  <p class="lead">本文档承接《七日分镜脚本》（单轨正式版 60‒90 分钟），把每一天拆为节点——每个节点包含目标、进入条件、交互方式、玩家可选动作、系统判定、成功产出、失败处理、关联变量、产出证据。</p>
+  <p>附录为数值设计表，含重新校准后的状态阈值与变量上下限。</p>
+  <div class="meta">
+    <div><span class="k">颗粒度</span><span class="v">节点级</span></div>
+    <div><span class="k">主角</span><span class="v">沈怀谷（单视角 1.0）<span style="color:#7C7871;margin-left:5mm">开发用</span></span></div>
+    <div><span class="k">配套</span><span class="v">七日分镜脚本 · 游戏机制设计文档<span style="color:#7C7871;margin-left:5mm">内部资料</span></span></div>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>01</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 目录</div><div class="tag">TABLE OF CONTENTS</div></div>
+  <h2 style="margin-top:8mm">目录<span class="en">CONTENTS</span></h2>
+  <div class="rule"></div>
+  <h3>文档结构</h3>
+  <table style="margin-top:2mm">
+    <tr><th style="width:16mm">页</th><th style="width:48mm">章节</th><th>内容</th></tr>
+    <tr><td class="num">03</td><td class="hi">设计原则</td><td>节点颗粒度、五步循环、铁律</td></tr>
+    <tr><td class="num">04‒05</td><td class="hi">Day0‒Day1 节点表</td><td>前夜 + 第一章（4 节点）</td></tr>
+    <tr><td class="num">06‒07</td><td class="hi">Day2‒Day3 节点表</td><td>第二章·六张照片 + 第三章·破庙（8 节点）</td></tr>
+    <tr><td class="num">08‒09</td><td class="hi">Day4‒Day5 节点表</td><td>第四章·拾骨人 + 第五章·错卦（6 节点）</td></tr>
+    <tr><td class="num">10‒11</td><td class="hi">Day6‒Day7 节点表</td><td>第六章·私信 + 第七章·终局（7 节点）</td></tr>
+    <tr><td class="num">12</td><td class="hi">节点汇总</td><td>全 25 节点一览与依赖关系</td></tr>
+    <tr><td class="num">13‒17</td><td class="hi">附录：数值设计表</td><td>变量、阈值、倒计时、判定、概率、校验</td></tr>
+  </table>
+  <div class="panel">
+    <p><span class="k">节点总数：</span>25 个。每个节点均可独立开发、独立测试，节点间通过变量与证据链耦合。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>02</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 原则</div><div class="tag">DESIGN PRINCIPLES</div></div>
+  <h2 style="margin-top:7mm">原则<span class="en">PRINCIPLES</span></h2>
+  <h3>关卡设计原则</h3>
+  <div class="rule"></div>
+  <h3>节点颗粒度</h3>
+  <div class="loc lat" style="margin-top:-1mm">NODE = ONE DECISION</div>
+  <p>一个节点 = 玩家做出一个有意义的选择或完成一个可验证的操作。不允许"走过场"节点——如果玩家在该节点没有任何可做的动作，该节点应合并到上一个节点。</p>
+  <h3>五步循环</h3>
+  <div class="loc lat" style="margin-top:-1mm">ASK → SHIFT → GET → LINK → JUDGE</div>
+  <p>每一天跑一轮：问证人 → 看反应变化 → 得到证物 → 连线推理 → 提判断。第七天的"判"被终局打断。</p>
+  <div class="panel">
+    <p><span class="k">铁律一：</span>终局切入时，系统检查玩家已收集的有效证据数。少于 2 条 → 强制进入 C 结局（盲选）；2‒4 条 → 可进入 B；≥5 条且 <code>true_location=true</code> → 可进入 A。</p>
+    <p><span class="k">铁律二：</span>每个节点必须产出至少一个可写入 evidence_log 的条目，或推进至少一个证人状态。产出两者皆无的节点必须删除。</p>
+    <p><span class="k">铁律三：</span>分支必须收敛。所有节点最多 2 个出口，且出口在 1 个章节内汇合。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>03</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day0‒Day1</div><div class="tag">NODES 01‒04</div></div>
+  <h2 style="margin-top:6mm">Day0‒1<span class="en">PROLOGUE + CHAPTER 01</span></h2>
+  <h3>Day0‒Day1 节点表</h3>
+  <div class="loc">合计 7.5‒10 分钟　建立不安 → 第一次质询</div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N01</span>｜ 前夜入村</span><span class="tag">0.5‒1 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>建立不安感，不给信息</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>游戏启动</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>固定镜头自动播放 + 手机震动反馈</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>无（纯观览，不可跳过前 20 秒）</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>无</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>氛围资产建立；变量 <code>day=0</code></td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>—</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td>无</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N02</span>｜ 入住登记</span><span class="tag">2‒3 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>建立老板娘的第一印象（清冽、俯视）</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N01 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>拟真交互：支付房费（输入金额）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>支付 / 查看房间 / 翻抽屉</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>翻抽屉 → 发现怀表（E9 埋点①）</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>房间场景解锁；<code>mention_watch +=1</code>（若翻抽屉）</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>不翻抽屉 → 错过埋点①，不影响主线</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>mention_watch</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无（埋点）</td></tr>
+    </table>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>04</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day1 续</div><div class="tag">NODES 03‒04</div></div>
+  <h2 style="margin-top:6mm">Day1<span class="en">CHAPTER 01 · CONTINUED</span></h2>
+  <h3>Day1 节点表（续）</h3>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N03</span>｜ 遗照发现</span><span class="tag">2‒3 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>产出第一条可质疑的证据 E1</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N02 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>查看照片（可双指放大查看日期）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>放大照片 / 查看日期 / 翻到背面</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>查看日期 → 写入 E1；未查看日期 → 仍可进入 N04 但无 E1</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E1「今日日期的遗照」；<code>evidence_count +=1</code></td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>错过 E1 → Day7 终局只能走 C 结局</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>evidence_count</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E1</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N04</span>｜ 墙里抓挠</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>第一次惊吓 + 第一次质询老板娘</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N03 完成（或玩家主动选择"休息"）</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>黑屏 + 音效 + 震动；随后对话选择</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>贴墙听 / 敲墙 / 质询老板娘</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>质询意图分三类：质问/试探/回避 → 决定老板娘反应</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>老板娘状态 <code>st_boss</code>：正常→动摇；手机收到私信（线索）</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>选"回避" → 不推进状态，但私信仍收到</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>st_boss</code>（初始=正常）</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无（推进状态，无新证据）</td></tr>
+    </table>
+  </div>
+  <div class="panel">
+    <p><span class="k">节奏校验：</span>N03‒N04 之间不得插入任何纯过场。玩家从"发现照片"到"听到抓挠声"必须在 30 秒内完成，这是 Day1 唯一的惊吓锚点。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>05</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day2</div><div class="tag">NODES 05‒08</div></div>
+  <h2 style="margin-top:6mm">Day2<span class="en">CHAPTER 02 · DAY 2</span></h2>
+  <h3>Day2 节点表</h3>
+  <div class="loc">合计 8‒11 分钟　证据高密度日</div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N05</span>｜ 阁楼六张照片</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>产出 E2，建立"六次轮回"认知</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N04 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>照片可拖动到时间轴排序；逐张放大查看背面</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>排序 / 查看背面生辰八字 / 发现年代递进</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>正确排序（帛画→画像→照片）→ 解锁"时间异常"标记</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E2「六张照片」；<code>evidence_count +=1</code>；线索"年代递进"</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>排序错误 → 不标记，但 E2 仍入袋</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>evidence_count</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E2</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N06</span>｜ 陈素心三问（第一次）</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>建立陈素心机制；产出 E3（依选择）</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N05 完成 + 子时触发</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>三问额度 UI（三个可点击的问句槽）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>从问句库选 3 条（或留 1 条到下一天）</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>问"你等了多久" → <code>mention_watch +=1</code>（埋点②）；问其他 → 给对应线索</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E3「陈素心回答」；<code>st_chen</code>：正常→动摇（视问题而定）</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>只问 2 条 → 当天少一条线索，但次日额度恢复为 3</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>st_chen</code>、<code>mention_watch</code>、问句额度</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E3</td></tr>
+    </table>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>06</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day2‒3</div><div class="tag">NODES 07‒11</div></div>
+  <h2 style="margin-top:6mm">Day2‒3<span class="en">CHAPTER 02‒03</span></h2>
+  <h3>Day2 续 + Day3 节点表</h3>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N07</span>｜ 论坛私信（第一段）</span><span class="tag">1‒2 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>暗示"有人在监视"，埋下摄影师线索</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N06 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>打字回复 / 查看 / 消息被撤回</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>回复（可选）</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>回复"你是谁" → 后续私信提前出现</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>线索"遗照不是摄影师拍的"</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>不回复 → 不影响</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td>无</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无（线索，非证据）</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N08</span>｜ 后山破庙</span><span class="tag">4‒5 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>产出 E4（线装书残页），揭示"摄六魂缺一容器"</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N07 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>场景探索（点击热区）+ 翻书页</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>翻页 / 发现批注（埋点③）/ 查看卦象图</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>发现批注 → <code>mention_watch +=1</code>；末页被撕 → 线索"有人先来过"</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E4「线装书残页」；<code>evidence_count +=1</code></td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>未发现批注 → 错过埋点③</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>evidence_count</code>、<code>mention_watch</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E4</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N09</span>｜ 赵铁柱相遇</span><span class="tag">2‒3 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>产出 E5，建立"命硬/涂血停下"设定</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N08 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>对话选择（质询/闲聊/离开）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>质询"你为什么出不去"</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>质询成功 → 他说"涂血就停下，我试过"；闲聊 → 给氛围信息</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E5「赵铁柱证言」；<code>st_zhao</code>：正常→动摇</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>选"离开" → 当天不推进，次日可再遇</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>st_zhao</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E5</td></tr>
+    </table>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>07</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day3‒4</div><div class="tag">NODES 10‒12</div></div>
+  <h2 style="margin-top:6mm">Day3‒4<span class="en">CHAPTER 03‒04</span></h2>
+  <h3>Day3 续 + Day4 节点表</h3>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N10</span>｜ 陈素心三问（第二次）</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>推进 <code>st_chen</code> 到破防；产出关键线索</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N09 完成 + 子时</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>三问额度 UI</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>问"你是不是活人" / "谁是守墓人" / 其他</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>问"你是不是活人" → 她承认"我不是活人" → <code>st_chen</code>：动摇→破防</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>线索"老板娘不是她"；<code>st_chen</code> 破防</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>不问此问题 → <code>st_chen</code> 停在动摇，Day4 对质林援朝时少一条支撑证据</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>st_chen</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无（推进状态）</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N11</span>｜ 林援朝与地图</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>产出关键二选一（信/不信地图）</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N10 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>查看地图（六阵眼标注）+ 对话选择</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>信地图 / 不信地图</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>见 N12 分支</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>线索"地图可能是假的"；<code>doubt_lin</code> 初始化</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>—</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>doubt_lin</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无</td></tr>
+    </table>
+  </div>
+  <div class="panel">
+    <p><span class="k">关键分支：</span>N11 的选择决定 N12 的内容，也影响 Day5 卦象谜题能否破解。这是全作最重要的一个有代价选择。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>08</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day4‒5</div><div class="tag">NODES 12‒14</div></div>
+  <h2 style="margin-top:6mm">Day4‒5<span class="en">CHAPTER 04‒05</span></h2>
+  <h3>Day4 续 + Day5 节点表</h3>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N12</span>｜ 地图验证（N11 分支）</span><span class="tag">3‒5 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>让"被骗"产出真线索</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N11 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>按图索骥探索（信路线）/ 自行推演（不信路线）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>信→走第六阵眼发现对不上；不信→自己推方位</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>信：发现第六阵眼方位矛盾 → 解锁"歪脖子松树"线索（Day5 必需）<br>不信：节省半天时间，但 Day5 需消耗 1 个陈素心问题额度补足方位</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>线索"地图第六点方位错误"（信）；或时间推进（不信）</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>信路线未发现矛盾 → 视同不信路线处理</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>map_path</code>（true=信，false=不信）、问句额度</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无（产出线索）</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N13</span>｜ 质询林援朝</span><span class="tag">2‒3 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>推进 <code>st_lin</code> 到锁定</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N12 完成 + 出示 E4 或 E5</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>出示证据 + 对话选择</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>出示线装书/赵铁柱证言 + 质问"你改了地图"</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>出示证据且 <code>doubt_lin≥40</code> → 他承认改地图想自逃 → <code>st_lin</code>：破防→锁定</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>线索"第六阵眼是他故意标错"；<code>st_lin</code> 锁定</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>证据不足 → 他不承认，状态停在破防，次日可再质询</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>st_lin</code>、<code>doubt_lin</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N14</span>｜ 卦象校验谜题</span><span class="tag">5‒7 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>破解卦象，确认真生门方位</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N13 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>六卦象卡拖到六红点；可打开第六张照片对比背景</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>拖卡 / 放大照片 / 查看地图方位</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>六卡全对 + 方位正确 → <code>true_location=true</code>；否则失败可重试</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E6「卦象校验结果」 + E7「真生门方位」；<code>evidence_count +=2</code></td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>可无限重试；但每次失败扣半天倒计时（<code>time_left -=0.5</code>）</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>true_location</code>、<code>time_left</code>、<code>evidence_count</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E6、E7</td></tr>
+    </table>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>09</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day6</div><div class="tag">NODES 15‒18</div></div>
+  <h2 style="margin-top:6mm">Day6<span class="en">CHAPTER 06 · DAY 6</span></h2>
+  <h3>Day6 节点表</h3>
+  <div class="loc">合计 9‒12 分钟　串联全部线索 + E9 判定</div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N15</span>｜ 私信四段</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>串联全部线索，产出 E8</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N14 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>逐条查看私信（不可跳过）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>查看 / 回复（第二段可回复，埋点⑥）</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>回复第二段 → <code>mention_watch +=1</code></td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E8「私信四段」；线索串联完成</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>—</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>mention_watch</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E8</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N16</span>｜ 商人抉择</span><span class="tag">2‒3 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>引入干扰项，二选一</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N15 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>对话选择</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>带商人 / 不带商人</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>带→15% 概率他指出第七阵眼（需 <code>true_location=true</code> 才有效）；不带→少干扰</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>若指出第七阵眼 → 解锁结局 C 的完整演出</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>带但没指出 → 只是多一个累赘</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td>无</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N17</span>｜ 收音机调频</span><span class="tag">2‒3 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>连接外界，具象化"声音能过去人不能"</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N16 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>拖动频率指针，找到杂音中的人声</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>调频（需试 3‒5 次）</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>找到正确频率 → 播放周教授声音；失败继续试</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>视频节点触发（30 秒）；线索"他找到了频率，但进不来"</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>无限重试</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td>无</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无（视频节点）</td></tr>
+    </table>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>10</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · Day6‒7</div><div class="tag">NODES 18‒21</div></div>
+  <h2 style="margin-top:6mm">Day6‒7<span class="en">CHAPTER 06‒07</span></h2>
+  <h3>Day6 续 + Day7 节点表</h3>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N18</span>｜ 陈素心三问（第三次·E9 判定）</span><span class="tag">2‒3 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>E9 怀表口诀判定</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N17 完成 + 子时</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>三问额度 UI</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>问"口诀是什么"</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td><code>mention_watch ≥3</code> → 给完整口诀"子午相冲，破阵即归" → E9 解锁<br><code>mention_watch &lt;3</code> → 只给半句"子午……即归"</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>E9「怀表口诀」（完整或半句）；<code>e9_unlocked</code> 标记</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>未问 → E9 不解锁，A 结局不触发真结局片段</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>mention_watch</code>、<code>e9_unlocked</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>E9（条件性）</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N19</span>｜ 第七夜·井边反转</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>揭示"阵要留的人是你"</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N18 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>视频节点 + 互动（点击井中脸）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>点击六张脸 / 查看自己的脸在最底下</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>自动播放，不可跳过</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>反转揭示完成；进入 N20</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>—</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td>无</td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无</td></tr>
+    </table>
+  </div>
+  <div class="sec">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;margin:0 0 1.6mm"><span><span class="tag" style="margin-right:2.2mm">N20</span>｜ 终局三选一</span><span class="tag">3‒4 min</span></h3>
+    <table class="cp" style="font-size:8pt;line-height:1.5">
+      <tr><th style="width:20mm">字段</th><th>内容</th></tr>
+      <tr><td style="width:20mm;color:#C0392B">目标</td><td>玩家做出最终选择</td></tr>
+      <tr><td style="color:#C0392B">进入条件</td><td>N19 完成</td></tr>
+      <tr><td style="color:#C0392B">交互方式</td><td>三选项 UI（A/B/C）</td></tr>
+      <tr><td style="color:#C0392B">玩家动作</td><td>选 A / B / C</td></tr>
+      <tr><td style="color:#C0392B">系统判定</td><td>见下页终局判定逻辑</td></tr>
+      <tr><td style="color:#C0392B">成功产出</td><td>进入对应结局视频过场</td></tr>
+      <tr><td style="color:#C0392B">失败处理</td><td>—</td></tr>
+      <tr><td style="color:#C0392B">关联变量</td><td><code>evidence_count</code>、<code>true_location</code>、<code>e9_unlocked</code></td></tr>
+      <tr><td style="color:#C0392B">产出证据</td><td>无</td></tr>
+    </table>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>11</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 汇总</div><div class="tag">NODE MAP</div></div>
+  <h2 style="margin-top:6mm">汇总<span class="en">SUMMARY</span></h2>
+  <h3>25 节点一览与依赖</h3>
+  <table class="cp" style="font-size:8pt;line-height:1.45">
+    <tr><th style="width:28mm">节点</th><th style="width:16mm">章节</th><th style="width:15mm">时长</th><th>产出</th><th style="width:17mm">依赖</th></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N01</span> 前夜</td><td>Day0</td><td>0.5‒1</td><td>氛围</td><td>—</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N02</span> 入住</td><td>Day1</td><td>2‒3</td><td>E9埋点①</td><td>N01</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N03</span> 遗照</td><td>Day1</td><td>2‒3</td><td>E1</td><td>N02</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N04</span> 抓挠</td><td>Day1</td><td>3‒4</td><td>st_boss↑</td><td>N03</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N05</span> 六照片</td><td>Day2</td><td>3‒4</td><td>E2</td><td>N04</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N06</span> 陈素心①</td><td>Day2</td><td>3‒4</td><td>E3, st_chen↑, 埋点②</td><td>N05</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N07</span> 私信①</td><td>Day2</td><td>1‒2</td><td>线索</td><td>N06</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N08</span> 破庙</td><td>Day3</td><td>4‒5</td><td>E4, 埋点③</td><td>N07</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N09</span> 赵铁柱</td><td>Day3</td><td>2‒3</td><td>E5, st_zhao↑</td><td>N08</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N10</span> 陈素心②</td><td>Day3</td><td>3‒4</td><td>st_chen→破防</td><td>N09</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N11</span> 林援朝</td><td>Day4</td><td>3‒4</td><td>doubt_lin 初始化</td><td>N10</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N12</span> 地图验证</td><td>Day4</td><td>3‒5</td><td>线索/时间</td><td>N11</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N13</span> 质询林</td><td>Day4</td><td>2‒3</td><td>st_lin→锁定</td><td>N12</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N14</span> 卦象谜题</td><td>Day5</td><td>5‒7</td><td>E6, E7, true_location</td><td>N13</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N15</span> 私信四段</td><td>Day6</td><td>3‒4</td><td>E8, 埋点⑥</td><td>N14</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N16</span> 商人</td><td>Day6</td><td>2‒3</td><td>结局C演出条件</td><td>N15</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N17</span> 收音机</td><td>Day6</td><td>2‒3</td><td>视频节点</td><td>N16</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N18</span> 陈素心③</td><td>Day6</td><td>2‒3</td><td>E9 (条件)</td><td>N17</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N19</span> 井边反转</td><td>Day7</td><td>3‒4</td><td>反转揭示</td><td>N18</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N20</span> 终局选择</td><td>Day7</td><td>3‒4</td><td>→ 结局</td><td>N19</td></tr>
+    <tr><td class="hi"><span style="color:#C0392B;font-weight:700">N21</span> 结局过场</td><td>Day7</td><td>1‒2</td><td>专属视频</td><td>N20</td></tr>
+  </table>
+  <div class="panel" style="margin-top:3.5mm;padding:4mm 5mm">
+    <p><span class="k">关键路径：</span>N01→N02→N03→N04→N05→N06→N08→N09→N10→N11→N12→N13→N14→N15→N18→N19→N20→N21（18 节点）。</p>
+  </div>
+  <p class="small" style="margin-top:-1mm">N07、N16、N17 为支线。</p>
+  <div class="panel" style="margin-top:2.5mm;padding:4mm 5mm">
+    <p><span class="k">最小可玩集：</span>若需砍内容做原型，保留关键路径 18 节点，删除 N07/N16/N17，时长压缩至 35‒45 分钟仍可完整通关。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>12</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 附录A</div><div class="tag">GLOBAL VARIABLES</div></div>
+  <h2 style="margin-top:6mm">附录A<span class="en">APPENDIX A · VARIABLES</span></h2>
+  <h3>数值设计表（一）：全局变量</h3>
+  <table style="font-size:8pt;line-height:1.5">
+    <tr><th style="width:26mm">变量名</th><th>含义</th><th style="width:13mm">初值</th><th style="width:12mm">下限</th><th style="width:12mm">上限</th><th style="width:40mm">用途</th></tr>
+    <tr><td class="hi"><code>day</code></td><td>当前天数</td><td>0</td><td>0</td><td>7</td><td>控制章节解锁</td></tr>
+    <tr><td class="hi"><code>time_left</code></td><td>剩余可行动时间（天）</td><td>7.0</td><td>0</td><td>7.0</td><td>倒计时，归零→强制结局C</td></tr>
+    <tr><td class="hi"><code>evidence_count</code></td><td>已收集有效证据数</td><td>0</td><td>0</td><td>9</td><td>终局判定（A/B/C 门槛）</td></tr>
+    <tr><td class="hi"><code>true_location</code></td><td>卦象谜题是否通过</td><td>false</td><td>—</td><td>—</td><td>A 结局真完成条件</td></tr>
+    <tr><td class="hi"><code>mention_watch</code></td><td>怀表提及次数</td><td>0</td><td>0</td><td>6</td><td>E9 解锁判定（≥3）</td></tr>
+    <tr><td class="hi"><code>e9_unlocked</code></td><td>E9 是否解锁</td><td>false</td><td>—</td><td>—</td><td>真结局片段触发</td></tr>
+    <tr><td class="hi"><code>map_path</code></td><td>是否信地图</td><td>null</td><td>—</td><td>—</td><td>true=信 / false=不信</td></tr>
+    <tr><td class="hi"><code>question_slots</code></td><td>当日陈素心问题额度</td><td>3</td><td>0</td><td>3</td><td>每天子时重置为 3</td></tr>
+  </table>
+  <h3 style="margin-top:6mm">证人状态变量</h3>
+  <table style="font-size:8pt;line-height:1.5">
+    <tr><th style="width:26mm">变量</th><th style="width:18mm">证人</th><th style="width:14mm">初值</th><th style="width:44mm">状态序列</th><th>阈值逻辑</th></tr>
+    <tr><td class="hi"><code>st_chen</code></td><td>陈素心</td><td>正常</td><td>正常→动摇→破防→锁定</td><td>质询 1 次→动摇；关键问题→破防</td></tr>
+    <tr><td class="hi"><code>st_lin</code></td><td>林援朝</td><td>正常</td><td>正常→动摇→破防→锁定</td><td><code>doubt_lin≥40</code> 且出示证据→锁定</td></tr>
+    <tr><td class="hi"><code>st_zhao</code></td><td>赵铁柱</td><td>正常</td><td>正常→动摇→锁定</td><td>质询成功→动摇（不破防，他信息有限）</td></tr>
+    <tr><td class="hi"><code>st_boss</code></td><td>老板娘</td><td>正常</td><td>正常→动摇→锁定</td><td>被质询→动摇；不可破防（她是反派）</td></tr>
+  </table>
+  <div class="panel">
+    <p><span class="k">重新校准说明：</span>旧脚本阈值为 trust≥60 / doubt≥70 / evidence≥2。经实测推算（七天玩家约可质询 8‒12 次、收集 6‒8 条证据），新阈值调整为：陈素心以关键问题判定（不靠次数），林援朝以 <code>doubt_lin≥40</code> 判定，赵铁柱以单次质询成功判定。数值更宽松，避免玩家"明明做了但没触发"。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>13</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 附录A</div><div class="tag">COUNTDOWN &amp; PENALTY</div></div>
+  <h2 style="margin-top:6mm">附录A<span class="en">APPENDIX A · TIMELINE &amp; PENALTY</span></h2>
+  <h3>数值设计表（二）：倒计时与扣减</h3>
+  <h3 style="margin-top:5mm">倒计时扣减规则</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:76mm">行为</th><th style="width:22mm">扣减</th><th>说明</th></tr>
+    <tr><td class="hi">卦象谜题失败</td><td>-0.5 天</td><td>每次重试扣半天</td></tr>
+    <tr><td class="hi">N12 选"不信地图"</td><td>不扣</td><td>省时间，但 Day5 需消耗 1 个问题额度</td></tr>
+    <tr><td class="hi">N12 选"信地图"但未发现矛盾</td><td>不扣</td><td>视同不信路线</td></tr>
+    <tr><td class="hi">陈素心问题额度用尽未问关键问题</td><td>不扣时间</td><td>但丢失对应线索（非时间惩罚）</td></tr>
+    <tr><td class="hi"><code>time_left</code> 归零</td><td>—</td><td>强制进入结局 C（无论 evidence_count）</td></tr>
+  </table>
+  <h3 style="margin-top:6mm">终局判定逻辑（N20）</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:76mm">条件</th><th>可进入结局</th></tr>
+    <tr><td class="hi"><code>evidence_count &lt; 2</code></td><td>仅 C（盲选）</td></tr>
+    <tr><td class="hi"><code>evidence_count</code> 2‒4</td><td>B 或 C</td></tr>
+    <tr><td class="hi"><code>evidence_count ≥ 5</code> 且 <code>true_location=true</code></td><td>A（真完成）、B、C</td></tr>
+    <tr><td class="hi"><code>evidence_count ≥ 5</code> 但 <code>true_location=false</code></td><td>A（残破版）、B、C</td></tr>
+    <tr><td class="hi"><code>e9_unlocked=true</code> 且选 A</td><td>A 末端追加真结局片段</td></tr>
+  </table>
+  <div class="panel">
+    <p><span class="k">设计意图：</span>倒计时不是为了制造紧迫感，而是为了惩罚"不看照片、不问问题"的玩家。认真探索的人不会感到时间压力。</p>
+  </div>
+  <div class="panel" style="margin-top:2.5mm;padding:4mm 5mm">
+    <p><span class="k">校准结论：</span>7 天倒计时在正常游玩下几乎不会归零（玩家每天自然会推进 1 天）。只有"反复失败谜题 + 选不信地图"的极端路径才可能归零。这是有意为之的"软倒计时"。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>14</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 附录A</div><div class="tag">JUDGEMENT &amp; PROBABILITY</div></div>
+  <h2 style="margin-top:6mm">附录A<span class="en">APPENDIX A · JUDGEMENT</span></h2>
+  <h3>数值设计表（三）：判定与概率</h3>
+  <h3 style="margin-top:5mm">质询判定</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:18mm">意图</th><th style="width:38mm">成功条件</th><th style="width:44mm">成功反应</th><th>失败反应</th></tr>
+    <tr><td class="hi">质问</td><td>出示对应证据</td><td>证人动摇/破防</td><td>"你凭什么这么说"</td></tr>
+    <tr><td class="hi">试探</td><td>无（始终成功）</td><td>给半句真话</td><td>—</td></tr>
+    <tr><td class="hi">回避</td><td>无（始终成功）</td><td>不推进状态，给氛围信息</td><td>—</td></tr>
+  </table>
+  <h3 style="margin-top:6mm">概率型事件</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:32mm">事件</th><th style="width:40mm">概率</th><th style="width:58mm">条件</th><th>产出</th></tr>
+    <tr><td class="hi">商人指出第七阵眼</td><td>15%</td><td>选"带商人" 且 <code>true_location=true</code></td><td>解锁结局 C 完整演出</td></tr>
+    <tr><td class="hi">收音机一次调中</td><td>0%（需试 3‒5 次）</td><td>—</td><td>确保玩家体验"找到"的过程</td></tr>
+    <tr><td class="hi">卦象谜题首次即通过</td><td>取决于线索</td><td>N12 信路线+发现矛盾=高；不信=需用问题额度</td><td>—</td></tr>
+  </table>
+  <div class="panel">
+    <p><span class="k">概率设计原则：</span>所有概率型事件不得影响主线进度。商人 15% 只影响结局 C 的演出完整度，不锁结局。这是为了避免"重玩发现上次是运气好"。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>15</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 附录A</div><div class="tag">EVIDENCE &amp; LINK VALIDATION</div></div>
+  <h2 style="margin-top:6mm">附录A<span class="en">APPENDIX A · EVIDENCE &amp; LINK</span></h2>
+  <h3>数值设计表（四）：证据与连线校验</h3>
+  <h3 style="margin-top:5mm">三条关键链</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:22mm">链</th><th style="width:34mm">所需证据</th><th>判定结果</th></tr>
+    <tr><td class="hi">遗照链</td><td>E1 + E2</td><td>"被选中的人没有机会照相 → 照片系伪造"</td></tr>
+    <tr><td class="hi">卦象链</td><td>E4 + E6 + E7</td><td>"第六阵眼方位错误 → 真生门确认"</td></tr>
+    <tr><td class="hi">口诀链</td><td>E9（完整）</td><td>"子午相冲，破阵即归" → 真结局片段</td></tr>
+  </table>
+  <h3 style="margin-top:6mm">证据板校验规则</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:26mm">规则</th><th>说明</th></tr>
+    <tr><td class="hi">连线不强制</td><td>玩家可以不连线直接推进天数</td></tr>
+    <tr><td class="hi">连线提示</td><td>当某条关键链的所需证据已全入袋，证据板高亮提示"可连线"</td></tr>
+    <tr><td class="hi">连线奖励</td><td>完成任意关键链连线 → <code>evidence_count</code> 加权（链完整性加成 +1）</td></tr>
+    <tr><td class="hi">错误连线</td><td>不产生惩罚，只不触发提示</td></tr>
+  </table>
+  <div class="panel">
+    <p><span class="k">evidence_count 加权规则：</span>基础值=已入袋证据数（0‒9）。每完成一条关键链连线 +1。上限 9 不变。例：入袋 6 条 + 完成 2 条链 = 8 分。</p>
+  </div>
+  <div class="panel" style="margin-top:2.5mm;padding:4mm 5mm">
+    <p><span class="k">注意：</span>连线是"判"的表现形式，但不设失败惩罚。强迫连线会破坏沉浸感——玩家应该想去连，而不是被要求去连。</p>
+  </div>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>16</div></div>
+</div>
+
+<div class="page">
+  <div class="hd"><div class="l">秦岭归云 · 关卡设计文档 · 附录</div><div class="tag">CANON &amp; CHANGELOG</div></div>
+  <h2 style="margin-top:6mm">封底<span class="en">APPENDIX · CLOSING</span></h2>
+  <h3>数值设计表（五）：口径与校准记录</h3>
+  <h3 style="margin-top:5mm">口径统一（与分镜脚本一致）</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:26mm">项目</th><th>口径</th></tr>
+    <tr><td class="hi">主角</td><td>沈怀谷</td></tr>
+    <tr><td class="hi">结局数</td><td>3（A/B/C）+ E9 条件触发片段</td></tr>
+    <tr><td class="hi">摄影师</td><td>被选中者，遗照系伪造</td></tr>
+    <tr><td class="hi">多角色</td><td>1.0 不做，留 2.0</td></tr>
+  </table>
+  <h3 style="margin-top:6mm">本次阈值校准记录</h3>
+  <table style="font-size:8.5pt;line-height:1.6">
+    <tr><th style="width:44mm">旧值（v1 脚本）</th><th style="width:52mm">新值（本次）</th><th>理由</th></tr>
+    <tr><td class="hi">陈素心 trust≥60</td><td>关键问题判定（不靠次数）</td><td>七天可质询次数有限，60 次不可达</td></tr>
+    <tr><td class="hi">林援朝 doubt≥70</td><td><code>doubt_lin≥40</code></td><td>符合实际可累计怀疑值</td></tr>
+    <tr><td class="hi">赵铁柱 evidence≥2</td><td>单次质询成功即动摇</td><td>他信息有限，不应要求多次</td></tr>
+    <tr><td class="hi">结局门槛（未设定）</td><td><code>evidence_count</code> 分级门槛</td><td>明确盲选/可选/全开三档</td></tr>
+    <tr><td class="hi">倒计时（未设定扣减）</td><td>谜题失败 -0.5 天</td><td>软倒计时，惩罚不看照片的人</td></tr>
+  </table>
+  <div class="panel">
+    <p><span class="k">下一步建议：</span>台词库（B）——三个证人在四种状态下的完整对白，是 AI 链路最实的一层。需先确定台词风格（书面感 vs 口语感）与字数上限。</p>
+  </div>
+  <div class="rule"></div>
+  <p class="small" style="text-align:center">秦岭归云 · 关卡设计文档<br>节点级 · 25 节点 · 附数值设计表 · 主角 沈怀谷</p>
+  <div class="ft"><div>关卡设计文档 · 节点级</div><div class="mid">秦 岭 归 云</div><div>17</div></div>
+</div>
